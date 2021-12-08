@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\admin\AdminAuthController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,7 +22,11 @@ Route::get('/', function () {
 
 
 Route::prefix('auth')->group(function () {
-    Route::get('login', [AdminAuthController::class, 'login'])->name('auth.login');
-    Route::get('register', [AuthController::class, 'registerLanding'])->name('auth.register.home');
+    Route::get('login', [AuthController::class, 'login'])->name('auth.login');
+    // Route::get('register', [AuthController::class, 'registerLanding'])->name('auth.register.home');
 
+});
+
+Route::prefix('admin')->group(function () {
+    Route::get('dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 });
