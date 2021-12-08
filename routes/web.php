@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\AdminAuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +16,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+
+Route::prefix('auth')->group(function () {
+    Route::get('login', [AdminAuthController::class, 'login'])->name('auth.login');
+    Route::get('register', [AuthController::class, 'registerLanding'])->name('auth.register.home');
+
 });
