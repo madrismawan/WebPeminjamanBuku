@@ -72,17 +72,6 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    {{-- <div class="form-group">
-                                        <label>Alamat Lengkap <span class="text-danger">*</span></label>
-                                        <div class="input-group mb-3">
-                                            <input type="email" name="email" autocomplete="off" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" placeholder="Masukan Alamat Lengkap">
-                                            @error('email')
-                                                <div class="invalid-feedback text-start">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                    </div> --}}
 
                                 </div>
                                 <div class="col-6">

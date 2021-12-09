@@ -17,4 +17,10 @@ class ManajemenPenggunaController extends Controller
     {
         return view('pages.admin.manajemen-pengguna.pengguna-tambah');
     }
+
+    public function store(Request $request)
+    {
+
+
+    }
 }
