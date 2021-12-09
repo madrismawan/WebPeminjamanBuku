@@ -25,6 +25,7 @@ Route::get('/', function () {
 
 Route::prefix('auth')->group(function () {
     Route::get('login', [AuthAdminAuthController::class, 'login'])->name('auth.login');
+    Route::post('login', [AuthAdminAuthController::class, 'loginPost'])->name('auth.login.post');
 
 });
 

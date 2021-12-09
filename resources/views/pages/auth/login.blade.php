@@ -18,16 +18,19 @@
         }
     </style>
 
+    <script src="{{asset('base-template\dist\js\sweetalert2.min.js')}}"></script>
+    <link rel="stylesheet" href="{{asset('base-template\dist\css\sweetalert2.min.css')}}">
+
 @endpush
 
 @section('content')
     <div class="container">
-        <div class="row p-lg-5 m-2">
-                <div id="screen1" class="col-12 col-sm-6 p-0" >
+        <div class="row p-lg-5 m-2 justify-content-center">
+                {{-- <div id="screen1" class="col-12 col-sm-6 p-0" >
                     <div class="card card-primary m-0">
                         <img id="splash" class="rounded" src="{{asset('base-template/dist/img/6263.jpg')}}" alt="Product Image">
                     </div>
-                </div>
+                </div> --}}
                 <div class="col-12 col-sm-6 p-0">
                     <div class="card card-primary mb-0">
                         <div class="card-header bg-white text-center">
@@ -37,13 +40,7 @@
                         </div>
                         <div class="card-body">
                             <p class="text-center pb-2 fs-6">Silakan Login untuk masuk ke sistem</p>
-                            @if (session('message'))
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    {{session('message')}}
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                </div>
-                            @endif
-                            <form  class="p-2" action="" method="post" id="form">
+                            <form  class="p-3" action="{{route('auth.login.post')}}" method="POST" id="form">
                                 @csrf
                                 <div class="input-group mb-3">
                                     <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email" value="{{ old('email') }}" autocomplete="off">
@@ -54,7 +51,7 @@
                                     </div>
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
+                                            <strong>{{$errors->first('email') }}</strong>
                                         </span>
                                     @enderror
                                 </div>
@@ -67,25 +64,14 @@
                                     </div>
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
+                                            <strong>{{$errors->first('password') }}</strong>
                                         </span>
                                     @enderror
                                 </div>
                                 <button type="submit" class="btn btn-outline-primary btn-block float-lg-right mb-4 mt-2">Masuk</button>
                             </form>
-                            <div class="text-center mt-1">
-                                <p class="mb-1">
-                                    Belum memiliki akun ?
-                                    <a href="#" class="text-decoration-none link-primary">DAFTAR DI SINI</a>
-                                </p>
-                                <p class="mb-1">
-                                    Lupa password ?
-                                    <a href="#" class="text-decoration-none link-primary">PULIHKAN DI SINI</a>
-                                </p>
-                            </div>
-
                         </div>
-                        <div class="text-center mt-4 mb-2">
+                        <div class="text-center mt-4 my-3">
                             <a class="nav-link link-dark">Sistem Peminjaman Buku 2021 &copy</a>
                         </div>
                     </div>
@@ -93,3 +79,20 @@
         </div>
     </div>
 @endsection
+
+@push('js')
+
+    <script src="{{asset('base-template\dist\js\sweetalert2.all.min.js')}}"></script>
+
+    <script>
+        @if(Session::has('status'))
+            Swal.fire({
+                icon:  @if(Session::has('icon')){!! '"'.Session::get('icon').'"' !!} @else 'question' @endif,
+                title: @if(Session::has('title')){!! '"'.Session::get('title').'"' !!} @else 'Oppss...'@endif,
+                text: @if(Session::has('message')){!! '"'.Session::get('message').'"' !!} @else 'Oppss...'@endif,
+            });
+        @endif
+    </script>
+
+
+@endpush
