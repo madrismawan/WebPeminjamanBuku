@@ -3,6 +3,15 @@
 @section('tittle','Tambah Pengguna')
 
 @push('css')
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{asset('base-template/plugins/select2/css/select2.min.css')}}">
+    <link rel="stylesheet" href="{{asset('base-template/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet" href="{{asset('base-template/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
+
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="{{asset('base-template/plugins/daterangepicker/daterangepicker.css')}}">
+
 
 @endpush
 
@@ -36,10 +45,9 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form action="#" method="POST" enctype="multipart/form-data">
+                        <form action="{{route('admin.manajemen-pengguna.store')}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row px-lg-4">
-
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label>Nama <span class="text-danger">*</span></label>
@@ -52,39 +60,37 @@
                                             </div>
                                             @error('nama')
                                                 <div class="invalid-feedback text-start">
-                                                    {{ $message }}
+                                                    {{$errors->first('nama') }}
                                                 </div>
                                             @enderror
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label>Tanggal Lahir <span class="text-danger">*</span></label>
-                                        <div class="input-group mb-3">
-                                            <input type="email" name="email" autocomplete="off" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" placeholder="Masukan E-Mail">
-                                            <div class="input-group-append">
-                                                <div class="input-group-text">
-                                                    <span class="fas fa-envelope"></span>
-                                                </div>
+                                        <label>Tanggal Lahir</label>
+                                        <div class="input-group date" id="reservationdate" data-target-input="nearest" data-inputmask-inputformat="dd/mm/yyyy" >
+                                            <input name="tanggal_lahir" type="text" class="form-control datetimepicker-input @error('tanggal_lahir') is-invalid @enderror" value="{{ old('tanggal_lahir') }}" data-target="#reservationdate" data-toggle="datetimepicker" />
+                                            <div class="input-group-append" >
+                                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                             </div>
-                                            @error('email')
+                                            @error('tanggal_lahir')
                                                 <div class="invalid-feedback text-start">
-                                                    {{ $message }}
+                                                    {{$errors->first('tanggal_lahir') }}
                                                 </div>
                                             @enderror
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label>Nomor HP <span class="text-danger">*</span></label>
+                                        <label>Nomor HP <span class="text-danger"> *</span></label>
                                         <div class="input-group mb-3">
-                                            <input type="number" name="email" autocomplete="off" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" placeholder="Masukan Nomor HP">
+                                            <input type="number" name="tlpn" autocomplete="off" class="form-control @error('tlpn') is-invalid @enderror" value="{{ old('tlpn') }}" placeholder="Masukan Nomor HP">
                                             <div class="input-group-append">
                                                 <div class="input-group-text">
                                                     <span class="fas fa-phone-alt"></span>
                                                 </div>
                                             </div>
-                                            @error('email')
+                                            @error('tlpn')
                                                 <div class="invalid-feedback text-start">
-                                                    {{ $message }}
+                                                    {{$errors->first('tlpn') }}
                                                 </div>
                                             @enderror
                                         </div>
@@ -92,7 +98,23 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label>NIM<span class="text-danger">*</span></label>
+                                        <label>Program Studi <span class="text-danger">*</span></label>
+                                        <select name="program_studi" class="form-control select2bs4  @error('program_studi') is-invalid @enderror" style="width: 100%;" aria-placeholder="Pilihlah Program Studi">
+                                            <option disabled selected>Pilihlah Program Studi</option>
+                                            <option value="Teknologi Informasi">Teknologi Informasi</option>
+                                            <option value="Teknik Sipil">Teknik Sipil</option>
+                                            <option value="Teknik Elektro">Teknik Elektro</option>
+                                            <option value="Teknik Arsitek">Teknik Arsitek</option>
+                                            <option value="Teknik Mesin">Teknik Mesin</option>
+                                        </select>
+                                        @error('program_studi')
+                                            <div class="invalid-feedback text-start">
+                                                {{$errors->first('program_studi') }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label>NIM <span class="text-danger">*</span></label>
                                         <div class="input-group">
                                             <input type="number" name="nim" autocomplete="off" class="form-control @error('nim') is-invalid @enderror" value="{{ old('nim') }}" placeholder="Masukan NIM Peminjam">
                                             <div class="input-group-append">
@@ -102,7 +124,7 @@
                                             </div>
                                             @error('nim')
                                                 <div class="invalid-feedback text-start">
-                                                    {{ $message }}
+                                                    {{$errors->first('nim') }}
                                                 </div>
                                             @enderror
                                         </div>
@@ -118,7 +140,7 @@
                                             </div>
                                             @error('email')
                                                 <div class="invalid-feedback text-start">
-                                                    {{ $message }}
+                                                    {{$errors->first('tlpn') }}
                                                 </div>
                                             @enderror
                                         </div>
@@ -126,8 +148,13 @@
 
                                 </div>
                                 <div class="form-group col-12">
-                                    <label>Alamat Lengkap</label>
-                                    <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                                    <label>Alamat Lengkap <span class="text-danger">*</span></label>
+                                    <textarea name="alamat" class="form-control  @error('email') is-invalid @enderror" rows="3" placeholder="Masukan Alamat Lengkap" value="{{ old('alamat') }}"></textarea>
+                                    @error('alamat')
+                                    <div class="invalid-feedback text-start">
+                                        {{$errors->first('alamat') }}
+                                    </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row d-flex justify-content-end mt-1 p-lg-2">
@@ -146,11 +173,77 @@
 
 
 @push('js')
+
+
+      <script src="{{asset('base-template/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+      <!-- Select2 -->
+      <script src="{{asset('base-template/plugins/select2/js/select2.full.min.js')}}"></script>
+      <!-- InputMask -->
+      <script src="{{asset('base-template/plugins/moment/moment.min.js')}}"></script>
+      <script src="{{asset('base-template/plugins/inputmask/jquery.inputmask.min.js')}}"></script>
+      <!-- date-range-picker -->
+      <script src="{{asset('base-template/plugins/daterangepicker/daterangepicker.js')}}"></script>
+      <!-- Tempusdominus Bootstrap 4 -->
+      <script src="{{asset('base-template/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+
+      <!-- date-range-picker -->
+      <script src="{{asset('base-template/plugins/daterangepicker/daterangepicker.js')}}"></script>
+
+
     <script type="text/javascript">
         $(document).ready(function(){
+            //Initialize Select2 Elements
+            $('.select2').select2()
+
+            //Initialize Select2 Elements
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            })
+
+
             $('#side-manajemen-pengguna').addClass('menu-open');
             $('#side-manajemen-pengguna-tambah').addClass('active');
         });
+    </script>
+
+    <script>
+        //Datemask dd/mm/yyyy
+        $('#datemask').inputmask('dd/mm/yyyy', {
+            'placeholder': 'dd/mm/yyyy'
+        })
+        //Datemask2 mm/dd/yyyy
+        $('#datemask2').inputmask('mm/dd/yyyy', {
+            'placeholder': 'mm/dd/yyyy'
+        })
+        //Money Euro
+        $('[data-mask]').inputmask()
+
+        //Date picker
+        $('#reservationdate').datetimepicker({
+            format: 'L'
+        });
+
+        //Date picker
+        $('#reservationdate').datetimepicker({
+            'placeholder': '01/00/0000'
+        });
+        //Date and time picker
+        $('#reservationdatetime').datetimepicker({
+            icons: {
+            time: 'far fa-clock'
+            }
+        });
+
+        //Date range picker
+        $('#reservation').daterangepicker()
+        //Date range picker with time picker
+        $('#reservationtime').daterangepicker({
+            timePicker: true,
+            timePickerIncrement: 30,
+            locale: {
+            format: 'MM/DD/YYYY hh:mm A'
+            }
+        })
     </script>
 @endpush
 

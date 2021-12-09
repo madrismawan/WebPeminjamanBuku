@@ -39,6 +39,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>'auth.admin'], function(){
 
     Route::get('manajemen-pengguna/data-pengguna', [ManajemenPenggunaController::class, 'index'])->name('admin.manajemen-pengguna.index');
     Route::get('manajemen-pengguna/data-pengguna/create', [ManajemenPenggunaController::class, 'create'])->name('admin.manajemen-pengguna.create');
+    Route::post('manajemen-pengguna/data-pengguna/store', [ManajemenPenggunaController::class, 'store'])->name('admin.manajemen-pengguna.store');
 
 
 });
