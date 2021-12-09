@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\AdminAuthController;
+use App\Http\Controllers\admin\auth\AdminAuthController as AuthAdminAuthController;
 use App\Http\Controllers\admin\dashboard\AdminDashboardController;
 use App\Http\Controllers\admin\manajemen_buku\ManajemenBukuController;
 use App\Http\Controllers\admin\manajemen_pengguna\ManajemenPenggunaController;
@@ -23,8 +24,7 @@ Route::get('/', function () {
 
 
 Route::prefix('auth')->group(function () {
-    Route::get('login', [AdminAuthController::class, 'login'])->name('auth.login');
-    // Route::get('register', [AuthController::class, 'registerLanding'])->name('auth.register.home');
+    Route::get('login', [AuthAdminAuthController::class, 'login'])->name('auth.login');
 
 });
 

@@ -12,4 +12,5 @@ class AdminAuthController extends Controller
         return view('pages.auth.login');
     }
 
+
 }
