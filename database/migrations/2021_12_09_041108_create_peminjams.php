@@ -16,19 +16,15 @@ class CreatePeminjams extends Migration
         Schema::create('peminjams', function (Blueprint $table) {
             $table->id();
             $table->string('nama',100);
-            $table->string('email',100);
             $table->string('alamat',100);
             $table->string('telepon',100);
             $table->date('tanggal_lahir');
+            $table->string('nim',10);
+            $table->enum('program_studi',['Teknologi Informasi','Teknik Sipil','Teknik Elektro','Teknik Arsitek','Teknik Mesin']);
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('peminjams');

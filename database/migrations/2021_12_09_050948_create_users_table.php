@@ -25,10 +25,22 @@ class CreateUsersTable extends Migration
         });
 
         User::create([
-            'nama' => 'Admin Made',
-            'email' => 'admin@gmail.com',
-            'password' => Hash::make('admin1234'),
-            'jabatan' => 'staff administrasi'
+            'nama' => 'kepala perpustakaan',
+            'email' => 'kepalaperpus@gmail.com',
+            'password' => Hash::make('kepalaperpus1234'),
+            'jabatan' => 'kepala perpustakaan'
+        ]);
+        User::create([
+            'nama' => 'pengelola',
+            'email' => 'pengelola@gmail.com',
+            'password' => Hash::make('pengelola1234'),
+            'jabatan' => 'pegelola'
+        ]);
+        User::create([
+            'nama' => 'staff administrasi',
+            'email' => 'staff@gmail.com',
+            'password' => Hash::make('staff1234'),
+            'jabatan' => 'pegelola'
         ]);
     }
 

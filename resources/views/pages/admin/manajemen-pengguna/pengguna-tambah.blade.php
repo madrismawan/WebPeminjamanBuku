@@ -39,6 +39,7 @@
                         <form action="#" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row px-lg-4">
+
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label>Nama <span class="text-danger">*</span></label>
@@ -72,25 +73,6 @@
                                             @enderror
                                         </div>
                                     </div>
-
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label>E-Mail <span class="text-danger">*</span></label>
-                                        <div class="input-group mb-3">
-                                            <input type="email" name="email" autocomplete="off" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" placeholder="Masukan E-Mail">
-                                            <div class="input-group-append">
-                                                <div class="input-group-text">
-                                                    <span class="fas fa-envelope"></span>
-                                                </div>
-                                            </div>
-                                            @error('email')
-                                                <div class="invalid-feedback text-start">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                    </div>
                                     <div class="form-group">
                                         <label>Nomor HP <span class="text-danger">*</span></label>
                                         <div class="input-group mb-3">
@@ -107,6 +89,41 @@
                                             @enderror
                                         </div>
                                     </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>NIM<span class="text-danger">*</span></label>
+                                        <div class="input-group">
+                                            <input type="number" name="nim" autocomplete="off" class="form-control @error('nim') is-invalid @enderror" value="{{ old('nim') }}" placeholder="Masukan NIM Peminjam">
+                                            <div class="input-group-append">
+                                                <div class="input-group-text">
+                                                    <span class="fas fa-id-card"></span>
+                                                </div>
+                                            </div>
+                                            @error('nim')
+                                                <div class="invalid-feedback text-start">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>E-Mail <span class="text-danger">*</span></label>
+                                        <div class="input-group mb-3">
+                                            <input type="email" name="email" autocomplete="off" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" placeholder="Masukan E-Mail">
+                                            <div class="input-group-append">
+                                                <div class="input-group-text">
+                                                    <span class="fas fa-envelope"></span>
+                                                </div>
+                                            </div>
+                                            @error('email')
+                                                <div class="invalid-feedback text-start">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
                                 </div>
                                 <div class="form-group col-12">
                                     <label>Alamat Lengkap</label>
