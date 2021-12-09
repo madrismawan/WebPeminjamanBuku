@@ -26,10 +26,12 @@ Route::get('/', function () {
 Route::prefix('auth')->group(function () {
     Route::get('login', [AuthAdminAuthController::class, 'login'])->name('auth.login');
     Route::post('login', [AuthAdminAuthController::class, 'loginPost'])->name('auth.login.post');
+    Route::get('logout', [AuthAdminAuthController::class, 'logout'])->name('auth.logout');
 
 });
 
-Route::prefix('admin')->group(function () {
+
+Route::group(['prefix'=>'admin', 'middleware'=>'auth.admin'], function(){
     Route::get('dashboard', [AdminDashboardController::class, 'dashboard'])->name('admin.dashboard');
 
     Route::get('manajemen-buku/data-buku', [ManajemenBukuController::class, 'index'])->name('admin.manajemen-buku.data');
@@ -41,5 +43,3 @@ Route::prefix('admin')->group(function () {
 
 
 });
-
-

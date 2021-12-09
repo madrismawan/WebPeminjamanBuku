@@ -64,5 +64,15 @@ class AdminAuthController extends Controller
         // END MAIN
     }
 
+    public function logout(){
+        Auth::logout();
+        return redirect()->route('auth.login')->with([
+            'status'=> 'success',
+            'icon' => 'success',
+            'title' => 'Berhasil Logout',
+            'message' => 'Berhasil melakukan logout !',
+        ]);
+    }
+
 
 }

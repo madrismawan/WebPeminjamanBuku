@@ -23,6 +23,8 @@
         <a class="nav-link" href="#signout') }}">Logout</a>
 
     </li> --}}
+    {{-- {{Auth::check()}} --}}
+
 
 @endsection
 

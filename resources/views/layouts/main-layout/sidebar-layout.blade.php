@@ -32,7 +32,7 @@
                             </a>
                         </li>
                         <li class="nav-item ml-3">
-                            <a id="side-konfirmasi-sulinggih" href="#" class="nav-link">
+                            <a id="side-konfirmasi-sulinggih" href="{{route('auth.logout')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Logout</p>
                             </a>

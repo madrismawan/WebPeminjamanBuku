@@ -3,7 +3,6 @@
 
 @push('css')
     <style>
-
         #splash{
             object-fit: cover;
             height: 577px;
