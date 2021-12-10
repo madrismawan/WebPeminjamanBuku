@@ -38,8 +38,8 @@ class CreateUsersTable extends Migration
         ]);
         User::create([
             'nama' => 'staff administrasi',
-            'email' => 'staff@gmail.com',
-            'password' => Hash::make('staff1234'),
+            'email' => 'admin@gmail.com',
+            'password' => Hash::make('admin'),
             'jabatan' => 'pegelola'
         ]);
     }

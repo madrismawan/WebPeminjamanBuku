@@ -20,13 +20,15 @@
         <div class="container-fluid border-bottom">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Tambah Pengguna Peminjam Buku</h1>
+                    <h1>Edit Pengguna Peminjam Buku</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Tambah Pengguna</li>
-                    </ol>
+                    <li class="breadcrumb-item"><a href="#">Data Pengguna</a></li>
+                    <li class="breadcrumb-item"><a href="#">Made Rismawan</a></li>
+                    <li class="breadcrumb-item active">Edit Pengguna</li>
+                </ol>
                 </div>
             </div>
         </div>
@@ -36,14 +38,6 @@
         <div class="row">
             <div class="col-12">
                 <div class="card card-primary">
-                    <div class="card-header bg-white text-center">
-                        {{-- <img class="rounded mx-auto d-block" src="{{ asset('base-template/dist/img/logo-01.png') }}" alt="sipandu logo" width="100" height="100"> --}}
-                        <div class="div p-3">
-                            <a href="" class="h3 fw-bold mb-1 text-dark">Sistem Peminjaman Buku</a>
-                            <p class="mt-1 fs-5 mb-1">Form Penambahan Anggota Perpus</p>
-                            <p class="text-center mb-1">Silahkan lengkapi data di bawah ini</p>
-                        </div>
-                    </div>
                     <div class="card-body">
                         <form action="{{route('admin.manajemen-pengguna.store')}}" method="POST" enctype="multipart/form-data">
                             @csrf
@@ -52,7 +46,7 @@
                                     <div class="form-group">
                                         <label>Nama <span class="text-danger">*</span></label>
                                         <div class="input-group mb-3">
-                                            <input type="text" name="nama" autocomplete="off" class="form-control @error('nama') is-invalid @enderror" value="{{ old('nama') }}" placeholder="Masukan Nama lengkap">
+                                            <input type="text" name="nama" autocomplete="off" class="form-control @error('nama') is-invalid @enderror" value="{{ old('nama') }}" placeholder="Masukan Nama lengkap" >
                                             <div class="input-group-append">
                                                 <div class="input-group-text">
                                                     <span class="fas fa-user"></span>
@@ -68,7 +62,7 @@
                                     <div class="form-group">
                                         <label>Nomor HP <span class="text-danger"> *</span></label>
                                         <div class="input-group mb-3">
-                                            <input type="number" name="tlpn" autocomplete="off" class="form-control @error('tlpn') is-invalid @enderror" value="{{ old('tlpn') }}" placeholder="Masukan Nomor HP">
+                                            <input type="number" name="tlpn" autocomplete="off" class="form-control @error('tlpn') is-invalid @enderror" value="{{ old('tlpn') }}" placeholder="Masukan Nomor HP" >
                                             <div class="input-group-append">
                                                 <div class="input-group-text">
                                                     <span class="fas fa-phone-alt"></span>
@@ -84,7 +78,7 @@
                                     <div class="form-group">
                                         <label>E-Mail <span class="text-danger">*</span></label>
                                         <div class="input-group mb-3">
-                                            <input type="email" name="email" autocomplete="off" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" placeholder="Masukan E-Mail">
+                                            <input type="email" name="email" autocomplete="off" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" placeholder="Masukan E-Mail" >
                                             <div class="input-group-append">
                                                 <div class="input-group-text">
                                                     <span class="fas fa-envelope"></span>
@@ -111,8 +105,8 @@
                                     <div class="form-group">
                                         <label>Program Studi <span class="text-danger">*</span></label>
                                         <select name="program_studi" class="form-control select2bs4  @error('program_studi') is-invalid @enderror" style="width: 100%;" aria-placeholder="Pilihlah Program Studi">
-                                            <option disabled selected>Pilihlah Program Studi</option>
-                                            <option value="Teknologi Informasi">Teknologi Informasi</option>
+                                            <option disabled>Pilihlah Program Studi</option>
+                                            <option value="Teknologi Informasi" selected>Teknologi Informasi</option>
                                             <option value="Teknik Sipil">Teknik Sipil</option>
                                             <option value="Teknik Elektro">Teknik Elektro</option>
                                             <option value="Teknik Arsitek">Teknik Arsitek</option>
@@ -124,10 +118,11 @@
                                             </div>
                                         @enderror
                                     </div>
+
                                     <div class="form-group">
                                         <label>NIM <span class="text-danger">*</span></label>
                                         <div class="input-group">
-                                            <input type="number" name="nim" autocomplete="off" class="form-control @error('nim') is-invalid @enderror" value="{{ old('nim') }}" placeholder="Masukan NIM Peminjam">
+                                            <input type="number" name="nim" autocomplete="off" class="form-control @error('nim') is-invalid @enderror" value="{{ old('nim') }}" placeholder="Masukan NIM Peminjam" >
                                             <div class="input-group-append">
                                                 <div class="input-group-text">
                                                     <span class="fas fa-id-card"></span>
@@ -145,7 +140,7 @@
                                 </div>
                                 <div class="form-group col-12">
                                     <label>Alamat Lengkap <span class="text-danger">*</span></label>
-                                    <textarea name="alamat" class="form-control  @error('email') is-invalid @enderror" rows="3" placeholder="Masukan Alamat Lengkap" value="{{ old('alamat') }}"></textarea>
+                                    <textarea name="alamat" class="form-control  @error('email') is-invalid @enderror" rows="3" placeholder="Masukan Alamat Lengkap" value="{{ old('alamat') }}" ></textarea>
                                     @error('alamat')
                                     <div class="invalid-feedback text-start">
                                         {{$errors->first('alamat') }}
@@ -153,9 +148,13 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="row d-flex justify-content-end mt-1 p-lg-2">
-                                <div class="col-7 col-sm-4">
-                                    <button type="submit" class="btn btn-primary btn-block">Daftarkan Pengguna Baru</button>
+
+                            <div class="mt-4 px-lg-4">
+                                <div class="float-lg-left">
+                                    <a href="{{route('admin.manajemen-pengguna.detail',[$data->id])}}" type="submit" class="btn btn-secondary btn-sm">Kembali</a>
+                                </div>
+                                <div class="float-lg-right">
+                                    <a style="" type="submit" class="btn btn-primary btn-sm ">Simpan Data</a>
                                 </div>
                             </div>
                         </form>
@@ -169,7 +168,6 @@
 
 
 @push('js')
-
 
       <script src="{{asset('base-template/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
       <!-- Select2 -->
@@ -197,7 +195,7 @@
             })
 
             $('#side-manajemen-pengguna').addClass('menu-open');
-            $('#side-manajemen-pengguna-tambah').addClass('active');
+            $('#side-manajemen-pengguna-data').addClass('active');
         });
     </script>
 

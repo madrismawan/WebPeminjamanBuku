@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="{{asset('base-template/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{ asset('base-template/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 
+    <script src="{{asset('base-template\dist\js\sweetalert2.min.js')}}"></script>
+    <link rel="stylesheet" href="{{asset('base-template\dist\css\sweetalert2.min.css')}}">
+
 @endpush
 
 
@@ -53,39 +56,28 @@
                                     <thead >
                                         <tr>
                                             <th>No</th>
-                                            <th>No KTP</th>
+                                            <th>NIM</th>
                                             <th>Nama</th>
-                                            <th>Alamat</th>
-                                            <th>Telepon</th>
-                                            <th>Tanggal Lahir</th>
+                                            <th>Nomor Telepon</th>
+                                            <th>Program Studi</th>
                                             <th>Tindakan</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>51030601022045201</td>
-                                            <td>Made Rismawan</td>
-                                            <td>Perumahan Cemara Giri Dalung, Kuta Utara, Dalung</td>
-                                            <td>081236452642</td>
-                                            <td>2-June-2021</td>
-                                            <td>
-                                                <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
-                                                <a href="#" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>51030601022045201</td>
-                                            <td>Made Rismawan</td>
-                                            <td>Perumahan Cemara Giri Dalung, Kuta Utara, Dalung</td>
-                                            <td>081236452642</td>
-                                            <td>2-June-2021</td>
-                                            <td>
-                                                <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
-                                                <a href="#" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
-                                            </td>
-                                        </tr>
+                                        @foreach ($dataPengguna as $data)
+                                            <tr>
+                                                <td>{{$loop->iteration}}</td>
+                                                <td>{{$data->nim}}</td>
+                                                <td>{{$data->nama}}</td>
+                                                <td>{{$data->telepon}}</td>
+                                                <td>{{$data->program_studi}}</td>
+                                                <td>
+                                                    <a href="{{route('admin.manajemen-pengguna.detail',[$data->id])}}" class="btn btn-secondary btn-sm"><i class="fas fa-eye"></i></a>
+                                                    <a href="{{route('admin.manajemen-pengguna.edit')}}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
+                                                    <a href="{{route('admin.manajemen-pengguna.delete')}}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -148,4 +140,17 @@
         });
     </script>
 
+    <script src="{{asset('base-template\dist\js\sweetalert2.all.min.js')}}"></script>
+
+    <script>
+        @if(Session::has('status'))
+            Swal.fire({
+                icon:  @if(Session::has('icon')){!! '"'.Session::get('icon').'"' !!} @else 'question' @endif,
+                title: @if(Session::has('title')){!! '"'.Session::get('title').'"' !!} @else 'Oppss...'@endif,
+                text: @if(Session::has('message')){!! '"'.Session::get('message').'"' !!} @else 'Oppss...'@endif,
+            });
+        @endif
+    </script>
+
 @endpush
+

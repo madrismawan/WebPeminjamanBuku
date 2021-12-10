@@ -17,6 +17,7 @@ class Peminjams extends Model
         'telepon',
         'tanggal_lahir',
         'nim',
-        'program_studi'
+        'program_studi',
+        'email'
     ];
 }

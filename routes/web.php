@@ -37,9 +37,16 @@ Route::group(['prefix'=>'admin', 'middleware'=>'auth.admin'], function(){
     Route::get('manajemen-buku/data-buku/create', [ManajemenBukuController::class, 'create'])->name('admin.manajemen-buku.create');
 
 
-    Route::get('manajemen-pengguna/data-pengguna', [ManajemenPenggunaController::class, 'index'])->name('admin.manajemen-pengguna.index');
-    Route::get('manajemen-pengguna/data-pengguna/create', [ManajemenPenggunaController::class, 'create'])->name('admin.manajemen-pengguna.create');
-    Route::post('manajemen-pengguna/data-pengguna/store', [ManajemenPenggunaController::class, 'store'])->name('admin.manajemen-pengguna.store');
+    Route::prefix('manajemen-pengguna')->group(function(){
+        Route::get('', [ManajemenPenggunaController::class, 'index'])->name('admin.manajemen-pengguna.index');
+        Route::get('create', [ManajemenPenggunaController::class, 'create'])->name('admin.manajemen-pengguna.create');
+        Route::post('store', [ManajemenPenggunaController::class, 'store'])->name('admin.manajemen-pengguna.store');
+        Route::get('detail/{id?}', [ManajemenPenggunaController::class, 'detail'])->name('admin.manajemen-pengguna.detail');
+        Route::get('edit/{id?}', [ManajemenPenggunaController::class, 'edit'])->name('admin.manajemen-pengguna.edit');
+        Route::put('update/{id?}', [ManajemenPenggunaController::class, 'store'])->name('admin.manajemen-pengguna.update');
+        Route::delete('delete', [ManajemenPenggunaController::class, 'store'])->name('admin.manajemen-pengguna.delete');
+    });
+
 
 
 });
