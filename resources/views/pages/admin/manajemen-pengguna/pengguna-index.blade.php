@@ -73,8 +73,13 @@
                                                 <td>{{$data->program_studi}}</td>
                                                 <td>
                                                     <a href="{{route('admin.manajemen-pengguna.detail',[$data->id])}}" class="btn btn-secondary btn-sm"><i class="fas fa-eye"></i></a>
-                                                    <a href="{{route('admin.manajemen-pengguna.edit')}}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
-                                                    <a href="{{route('admin.manajemen-pengguna.delete')}}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                                                    <a href="{{route('admin.manajemen-pengguna.edit',[$data->id])}}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
+                                                    <button onclick="deletePeminjams({{$data->id}})" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i>
+                                                    </button>
+                                                    <form id="{{"delete-".$data->id}}" class="d-none" action="{{route('admin.manajemen-pengguna.delete',[$data->id])}}" method="post">
+                                                        @csrf
+                                                        @method('delete')
+                                                    </form>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -82,6 +87,7 @@
                                 </table>
                             </div>
                         </div>
+
                     </div>
                     {{-- End Data Table Sulinggih --}}
 
@@ -95,6 +101,9 @@
 
 
 @push('js')
+
+
+
     <!-- Bootstrabase-template-->
     <script src="{{asset('base-template/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <!-- DataTablbase-template Plugins -->
@@ -105,6 +114,28 @@
     <script src="{{asset('base-template/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
 
     <script type="text/javascript">
+
+        function deletePeminjams(index){
+            Swal.fire({
+                title: 'Peringatan',
+                text : 'Apakah anda yakin akan menghapus peminjaman?',
+                icon:'warning',
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: `Hapus`,
+                denyButtonText: `Batal`,
+                confirmButtonColor: '#3085d6',
+                denyButtonColor: '#d33',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('#delete-'+index).submit();
+                    } else if (result.isDenied) {
+
+                    }
+                })
+        }
+
+
         $(document).ready(function(){
             $('#side-master-data').addClass('menu-open');
             $('#side-upacara').addClass('active');

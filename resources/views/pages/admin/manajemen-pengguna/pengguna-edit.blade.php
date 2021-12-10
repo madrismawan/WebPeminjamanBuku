@@ -12,6 +12,10 @@
     <!-- daterange picker -->
     <link rel="stylesheet" href="{{asset('base-template/plugins/daterangepicker/daterangepicker.css')}}">
 
+    <script src="{{asset('base-template\dist\js\sweetalert2.min.js')}}"></script>
+    <link rel="stylesheet" href="{{asset('base-template\dist\css\sweetalert2.min.css')}}">
+
+
 
 @endpush
 
@@ -39,14 +43,16 @@
             <div class="col-12">
                 <div class="card card-primary">
                     <div class="card-body">
-                        <form action="{{route('admin.manajemen-pengguna.store')}}" method="POST" enctype="multipart/form-data">
+                        <form action="{{route('admin.manajemen-pengguna.update')}}" method="POST"  enctype="multipart/form-data">
                             @csrf
+                            @method('PUT')
+                            <input name="id" type="hidden" value="{{$dataPeminjam->id}}">
                             <div class="row px-lg-4">
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label>Nama <span class="text-danger">*</span></label>
                                         <div class="input-group mb-3">
-                                            <input type="text" name="nama" autocomplete="off" class="form-control @error('nama') is-invalid @enderror" value="{{ old('nama') }}" placeholder="Masukan Nama lengkap" >
+                                            <input type="text" name="nama" autocomplete="off" class="form-control @error('nama') is-invalid @enderror" value="{{$dataPeminjam->nama}}" placeholder="Masukan Nama lengkap" >
                                             <div class="input-group-append">
                                                 <div class="input-group-text">
                                                     <span class="fas fa-user"></span>
@@ -62,7 +68,7 @@
                                     <div class="form-group">
                                         <label>Nomor HP <span class="text-danger"> *</span></label>
                                         <div class="input-group mb-3">
-                                            <input type="number" name="tlpn" autocomplete="off" class="form-control @error('tlpn') is-invalid @enderror" value="{{ old('tlpn') }}" placeholder="Masukan Nomor HP" >
+                                            <input type="number" name="tlpn" autocomplete="off" class="form-control @error('tlpn') is-invalid @enderror" value="{{ $dataPeminjam->telepon }}" placeholder="Masukan Nomor HP" >
                                             <div class="input-group-append">
                                                 <div class="input-group-text">
                                                     <span class="fas fa-phone-alt"></span>
@@ -78,7 +84,7 @@
                                     <div class="form-group">
                                         <label>E-Mail <span class="text-danger">*</span></label>
                                         <div class="input-group mb-3">
-                                            <input type="email" name="email" autocomplete="off" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" placeholder="Masukan E-Mail" >
+                                            <input type="email" name="email" autocomplete="off" class="form-control @error('email') is-invalid @enderror" value="{{  $dataPeminjam->email }}" placeholder="Masukan E-Mail" >
                                             <div class="input-group-append">
                                                 <div class="input-group-text">
                                                     <span class="fas fa-envelope"></span>
@@ -95,7 +101,7 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="">Tanggal Lahir</label>
-                                        <input type="date" name="tanggal_lahir" maxlength="10" class="form-control bg-se @error('tanggal_lahir') is-invalid @enderror" value="{{ old('tanggal_lahir') }}" id="tanggal-penyuluhan">
+                                        <input type="date" name="tanggal_lahir" maxlength="10" class="form-control bg-se @error('tanggal_lahir') is-invalid @enderror" value="{{  $dataPeminjam->tanggal_lahir }}" id="tanggal-penyuluhan">
                                         @error('tanggal_lahir')
                                             <span class="invalid-feedback">
                                                 <strong>{{$errors->first('tanggal_lahir') }}</strong>
@@ -106,11 +112,11 @@
                                         <label>Program Studi <span class="text-danger">*</span></label>
                                         <select name="program_studi" class="form-control select2bs4  @error('program_studi') is-invalid @enderror" style="width: 100%;" aria-placeholder="Pilihlah Program Studi">
                                             <option disabled>Pilihlah Program Studi</option>
-                                            <option value="Teknologi Informasi" selected>Teknologi Informasi</option>
-                                            <option value="Teknik Sipil">Teknik Sipil</option>
-                                            <option value="Teknik Elektro">Teknik Elektro</option>
-                                            <option value="Teknik Arsitek">Teknik Arsitek</option>
-                                            <option value="Teknik Mesin">Teknik Mesin</option>
+                                            <option value="Teknologi Informasi" @if ($dataPeminjam->program_studi == 'Teknologi Informasi') selected @endif>Teknologi Informasi</option>
+                                            <option value="Teknik Sipil" @if ($dataPeminjam->program_studi == 'Teknik Sipil') selected @endif>Teknik Sipil</option>
+                                            <option value="Teknik Elektro" @if ($dataPeminjam->program_studi == 'Teknik Elektro') selected @endif>Teknik Elektro</option>
+                                            <option value="Teknik Arsitek" @if ($dataPeminjam->program_studi == 'Teknik Arsitek') selected @endif>Teknik Arsitek</option>
+                                            <option value="Teknik Mesin" @if ($dataPeminjam->program_studi == 'Teknik Mesin') selected @endif>Teknik Mesin</option>
                                         </select>
                                         @error('program_studi')
                                             <div class="invalid-feedback text-start">
@@ -119,10 +125,10 @@
                                         @enderror
                                     </div>
 
-                                    <div class="form-group">
+                                    <div class="form-group mb-1">
                                         <label>NIM <span class="text-danger">*</span></label>
                                         <div class="input-group">
-                                            <input type="number" name="nim" autocomplete="off" class="form-control @error('nim') is-invalid @enderror" value="{{ old('nim') }}" placeholder="Masukan NIM Peminjam" >
+                                            <input type="number" name="nim" autocomplete="off" class="form-control @error('nim') is-invalid @enderror" value="{{ $dataPeminjam->nim }}" placeholder="Masukan NIM Peminjam" >
                                             <div class="input-group-append">
                                                 <div class="input-group-text">
                                                     <span class="fas fa-id-card"></span>
@@ -130,7 +136,7 @@
                                             </div>
                                             @error('nim')
                                                 <div class="invalid-feedback text-start">
-                                                    {{$errors->first('nim') }}
+                                                    {{$errors->first('nim')}}
                                                 </div>
                                             @enderror
                                         </div>
@@ -140,7 +146,7 @@
                                 </div>
                                 <div class="form-group col-12">
                                     <label>Alamat Lengkap <span class="text-danger">*</span></label>
-                                    <textarea name="alamat" class="form-control  @error('email') is-invalid @enderror" rows="3" placeholder="Masukan Alamat Lengkap" value="{{ old('alamat') }}" ></textarea>
+                                    <textarea name="alamat" class="form-control  @error('email') is-invalid @enderror" rows="3" placeholder="Masukan Alamat Lengkap" value="{{ old('alamat') }}" >{{$dataPeminjam->alamat}} </textarea>
                                     @error('alamat')
                                     <div class="invalid-feedback text-start">
                                         {{$errors->first('alamat') }}
@@ -151,10 +157,10 @@
 
                             <div class="mt-4 px-lg-4">
                                 <div class="float-lg-left">
-                                    <a href="{{route('admin.manajemen-pengguna.detail',[$data->id])}}" type="submit" class="btn btn-secondary btn-sm">Kembali</a>
+                                    <a href="{{route('admin.manajemen-pengguna.detail',[$dataPeminjam->id])}}" type="submit" class="btn btn-secondary btn-sm">Kembali</a>
                                 </div>
                                 <div class="float-lg-right">
-                                    <a style="" type="submit" class="btn btn-primary btn-sm ">Simpan Data</a>
+                                    <button style="" type="submit" class="btn btn-primary btn-sm ">Simpan Data</button>
                                 </div>
                             </div>
                         </form>
@@ -212,6 +218,19 @@
             }
         })
     </script>
+
+    <script src="{{asset('base-template\dist\js\sweetalert2.all.min.js')}}"></script>
+
+    <script>
+        @if(Session::has('status'))
+            Swal.fire({
+                icon:  @if(Session::has('icon')){!! '"'.Session::get('icon').'"' !!} @else 'question' @endif,
+                title: @if(Session::has('title')){!! '"'.Session::get('title').'"' !!} @else 'Oppss...'@endif,
+                text: @if(Session::has('message')){!! '"'.Session::get('message').'"' !!} @else 'Oppss...'@endif,
+            });
+        @endif
+    </script>
+
 @endpush
 
 

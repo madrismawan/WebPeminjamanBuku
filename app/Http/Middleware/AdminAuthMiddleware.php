@@ -24,7 +24,7 @@ class AdminAuthMiddleware
                 'status' => 'fail',
                 'icon' => 'error',
                 'title' => 'Hak Akses Dibatasi !',
-                'message' => 'Mohon untul login terlebih dahulu',
+                'message' => 'Mohon untuk login terlebih dahulu!!',
             ]);
         }
     }

@@ -38,7 +38,7 @@ class ManajemenPenggunaController extends Controller
                 'tanggal_lahir' => 'required',
                 'tlpn' => 'required',
                 'program_studi' => 'required|in:Teknologi Informasi,Teknik Mesin,Teknik Sipil,Teknik Arsitektur,Teknik Elektro',
-                'nim' => 'required',
+                'nim' => 'required|numeric',
                 'email' => 'required',
                 'alamat' => 'required'
 
@@ -64,6 +64,7 @@ class ManajemenPenggunaController extends Controller
             Peminjams::create([
                 'nama' => $request->nama,
                 'alamat' => $request->alamat,
+                'email' => $request->email,
                 'telepon' => $request->tlpn,
                 'tanggal_lahir' =>$request->tanggal_lahir,
                 'nim' => $request->nim,
@@ -131,9 +132,131 @@ class ManajemenPenggunaController extends Controller
 
 
     public function edit(Request $request){
-        return view('pages.admin.manajemen-pengguna.pengguna-edit');
+        // SECURITY
+        $validator = Validator::make(['id' =>$request->id],[
+            'id' => 'required|exists:peminjams,id',
+        ]);
+
+        if($validator->fails()){
+            return redirect()->back()->with([
+                'status' => 'fail',
+                'icon' => 'error',
+                'title' => 'Data Peminjam Tidak Ditemukan',
+                'message' => 'Data Peminjam tidak ditemukan di dalam sistem',
+            ]);
+        }
+    // END
+
+    // MAIN LOGIC
+        try{
+            $dataPeminjam = Peminjams::findOrFail($request->id);
+        }catch(ModelNotFoundException $err){
+            return redirect()->back()->with([
+                'status' => 'fail',
+                'icon' => 'error',
+                'title' => 'Data Peminjam Tidak Ditemukan',
+                'message' => 'Data Peminjam tidak ditemukan di dalam sistem',
+            ]);
+        }
+    // END
+
+    // RETURN
+        return view('pages.admin.manajemen-pengguna.pengguna-edit', compact('dataPeminjam'));
+    // END
 
     }
+
+    public function update(Request $request){
+        // SECURITY
+            $validator = Validator::make($request->all(),[
+                'id' => 'required|exists:peminjams,id',
+                'nama' => 'required',
+                'tanggal_lahir' => 'required',
+                'tlpn' => 'required',
+                'program_studi' => 'required|in:Teknologi Informasi,Teknik Mesin,Teknik Sipil,Teknik Arsitektur,Teknik Elektro',
+                'nim' => 'required',
+                'email' => 'required',
+                'alamat' => 'required'
+            ]);
+
+            if($validator->fails()){
+                return redirect()->back()->with([
+                    'status' => 'fail',
+                    'icon' => 'error',
+                    'title' => 'Edit Data Gagal',
+                    'message' => 'Form input tidak boleh kosong!!',
+                ])->withErrors($validator->errors());
+            }
+        // END SECURITY
+
+        // MAIN LOGIC
+            try{
+                $peminjam = Peminjams::findOrFail($request->id)->update($request->all());
+            }catch(ModelNotFoundException $err){
+                return redirect()->back()->with([
+                    'status' => 'fail',
+                    'icon' => 'error',
+                    'title' => 'Edit Data Gagal',
+                    'message' => 'Data Peminjam tidak ditemukan di dalam sistem',
+                ]);
+            }
+        // END MAIN LOGIC
+
+        // RETURN
+            return redirect()->route('admin.manajemen-pengguna.detail',$request->id)->withInput($request->all())->with([
+                'status' => 'success',
+                'icon' => 'success',
+                'title' => 'Berhasil Merubah Data Peminjam',
+                'message' => 'Data Peminjam Berhasil diubah',
+            ]);
+        //END
+
+    }
+
+
+    public function delete(Request $request){
+        // SECURITY
+            $validator = Validator::make(['id' =>$request->id],[
+                'id' => 'required|exists:peminjams,id',
+            ]);
+
+            if($validator->fails()){
+                return redirect()->back()->with([
+                    'status' => 'fail',
+                    'icon' => 'error',
+                    'title' => 'Edit Data Gagal',
+                    'message' => 'Form input tidak boleh kosong!!',
+                ]);
+            }
+        // END SECURITY
+
+        // MAIN LOGIC
+            try{
+                Peminjams::findOrFail($request->id)->delete();
+            }catch(ModelNotFoundException $err){
+                return redirect()->back()->with([
+                    'status' => 'success',
+                    'icon' => 'success',
+                    'tittle' => 'Hapus Data Gagal!',
+                    'message' => 'Data Peminjam tidak ditemukan di dalam sistem'
+                ]);
+            }
+        // END LOGIC
+
+        // RETURN
+            return redirect()->back()->with([
+                'status' => 'success',
+                'icon' => 'success',
+                'title' => 'Berhasil Menghapus Data Peminjam',
+                'message' => 'Data peminjam berhasil dihapus pada sistem'
+            ]);
+        // END RETURN
+
+
+
+    }
+
+
 
 
 }

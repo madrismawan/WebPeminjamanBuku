@@ -51,7 +51,7 @@ class AdminAuthController extends Controller
                         'icon' => 'error',
                         'title' => 'Gagal Login',
                         'message' => 'Gagal melakukan login ke dalam sistem, email atau password yang anda masukan salah!'
-                    ]);
+                    ])->withInput($request->all());
                 }
             }catch(ModelNotFoundException | PDOException | ErrorException | QueryException | \Throwable | \Exception $err){
                 return redirect()->back()->with([

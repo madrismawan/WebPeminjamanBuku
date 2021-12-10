@@ -12,6 +12,9 @@
     <!-- daterange picker -->
     <link rel="stylesheet" href="{{asset('base-template/plugins/daterangepicker/daterangepicker.css')}}">
 
+    <script src="{{asset('base-template\dist\js\sweetalert2.min.js')}}"></script>
+    <link rel="stylesheet" href="{{asset('base-template\dist\css\sweetalert2.min.css')}}">
+
 
 @endpush
 
@@ -26,7 +29,7 @@
                     <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
                     <li class="breadcrumb-item"><a href="#">Data Pengguna</a></li>
-                    <li class="breadcrumb-item active">Made Risamwan</li>
+                    <li class="breadcrumb-item active">{{$dataPeminjam->nama}}</li>
                 </ol>
                 </div>
             </div>
@@ -160,7 +163,7 @@
                                     <a href="{{route('admin.manajemen-pengguna.index')}}" type="submit" class="btn btn-secondary btn-sm">Kembali</a>
                                 </div>
                                 <div class="float-lg-right">
-                                    <a style="{{route('admin.manajemen-pengguna.edit',[$dataPeminjam->id])}}" type="submit" class="btn btn-primary btn-sm ">Edit</a>
+                                    <a href="{{route('admin.manajemen-pengguna.edit',[$dataPeminjam->id])}}" type="submit" class="btn btn-primary btn-sm ">Edit</a>
                                 </div>
                             </div>
                         </form>
@@ -218,6 +221,19 @@
             }
         })
     </script>
+
+    <script src="{{asset('base-template\dist\js\sweetalert2.all.min.js')}}"></script>
+
+    <script>
+        @if(Session::has('status'))
+            Swal.fire({
+                icon:  @if(Session::has('icon')){!! '"'.Session::get('icon').'"' !!} @else 'question' @endif,
+                title: @if(Session::has('title')){!! '"'.Session::get('title').'"' !!} @else 'Oppss...'@endif,
+                text: @if(Session::has('message')){!! '"'.Session::get('message').'"' !!} @else 'Oppss...'@endif,
+            });
+        @endif
+    </script>
+
 @endpush
 
 

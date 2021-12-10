@@ -92,7 +92,7 @@
                                             </div>
                                             @error('email')
                                                 <div class="invalid-feedback text-start">
-                                                    {{$errors->first('tlpn') }}
+                                                    {{$errors->first('email') }}
                                                 </div>
                                             @enderror
                                         </div>

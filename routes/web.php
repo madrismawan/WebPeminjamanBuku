@@ -43,8 +43,8 @@ Route::group(['prefix'=>'admin', 'middleware'=>'auth.admin'], function(){
         Route::post('store', [ManajemenPenggunaController::class, 'store'])->name('admin.manajemen-pengguna.store');
         Route::get('detail/{id?}', [ManajemenPenggunaController::class, 'detail'])->name('admin.manajemen-pengguna.detail');
         Route::get('edit/{id?}', [ManajemenPenggunaController::class, 'edit'])->name('admin.manajemen-pengguna.edit');
-        Route::put('update/{id?}', [ManajemenPenggunaController::class, 'store'])->name('admin.manajemen-pengguna.update');
-        Route::delete('delete', [ManajemenPenggunaController::class, 'store'])->name('admin.manajemen-pengguna.delete');
+        Route::put('update', [ManajemenPenggunaController::class, 'update'])->name('admin.manajemen-pengguna.update');
+        Route::delete('delete/{id?}', [ManajemenPenggunaController::class, 'delete'])->name('admin.manajemen-pengguna.delete');
     });
 
 
