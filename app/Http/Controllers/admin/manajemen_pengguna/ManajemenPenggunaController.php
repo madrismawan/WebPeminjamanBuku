@@ -14,12 +14,6 @@ use PDOException;
 class ManajemenPenggunaController extends Controller
 {
 
-    public function show(Request $request)
-    {
-        dd("risawa");
-    }
-
-
 
 
     public function index(Request $request)
@@ -264,7 +258,9 @@ class ManajemenPenggunaController extends Controller
 
     }
 
-
+    public function getImage(Request $request){
+        dd($request->path);
+    }
 
 
 }

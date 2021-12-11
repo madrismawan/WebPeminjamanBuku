@@ -3,16 +3,19 @@
 namespace App\Http\Controllers\admin\manajemen_buku;
 
 use App\Http\Controllers\Controller;
+use App\ImageHelper;
 use App\Models\Buku;
+use App\Mover;
+use Illuminate\Support\Facades\File;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class ManajemenBukuController extends Controller
 {
-
 
     public function index(Request $request)
     {
@@ -26,10 +29,6 @@ class ManajemenBukuController extends Controller
 
     public function store(Request $request)
     {
-        // $image = $request->file('file');
-        // $request->file->store('product', 'public');
-
-        // dd($request->file->hashName());
         // SECURITY
             $validator = Validator::make($request->all(),[
                 'kode_buku' => 'required',
@@ -52,12 +51,13 @@ class ManajemenBukuController extends Controller
                     'message' => 'Gagal menambahkan Buku ke dalam sistem, validation input form fail'
                 ])->withInput($request->all())->withErrors($validator->errors());
             }
-        // // END SECURITY
+        // END SECURITY
 
-        // // MAIN LOGIC
+        // MAIN LOGIC
             try{
                 DB::beginTransaction();
-                $imageName = $request->file->store('image','foto_sampul');
+                $folder = 'app/buku/foto_sampul';
+                $filename =  ImageHelper::moveImage($request->file,$folder);
 
                 Buku::create([
                     'kode'=> $request->kode_buku,
@@ -69,7 +69,7 @@ class ManajemenBukuController extends Controller
                     'jumlah_halaman'=> $request->jumlah_halaman,
                     'kondisi'=> $request->kondisi_buku,
                     'status'=> "Bebas",
-                    'foto_sampul'=> $request->file->hashName()
+                    'foto_sampul'=> $filename
                 ]);
                 DB::commit();
             }catch(ModelNotFoundException $err){
@@ -93,5 +93,12 @@ class ManajemenBukuController extends Controller
             ]);
         // // END RETURN
     }
+
+
+    public function detail(Request $request)
+    {
+        return view('pages.admin.manajemen-buku.manajemen-buku-detail');
+    }
+
 
 }

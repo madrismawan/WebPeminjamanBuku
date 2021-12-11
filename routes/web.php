@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+
+
 });
 
 
@@ -40,6 +42,8 @@ Route::group(['prefix'=>'admin', 'middleware'=>'auth.admin'], function(){
         Route::get('', [ManajemenBukuController::class, 'index'])->name('admin.manajemen-buku.data');
         Route::get('create', [ManajemenBukuController::class, 'create'])->name('admin.manajemen-buku.create');
         Route::post('store', [ManajemenBukuController::class, 'store'])->name('admin.manajemen-buku.store');
+        Route::get('detail/{id?}', [ManajemenBukuController::class, 'detail'])->name('admin.manajemen-buku.detail');
+        Route::get('show', [ManajemenBukuController::class, 'show'])->name('admin.manajemen-buku.show');
 
     });
 
@@ -55,7 +59,10 @@ Route::group(['prefix'=>'admin', 'middleware'=>'auth.admin'], function(){
 
     });
 
-    Route::get('show', [ManajemenPenggunaController::class, 'show'])->name('arah');
 
 
+});
+
+Route::prefix('helper')->group(function(){
+    Route::get('get-image/{path?}', [ManajemenPenggunaController::class, 'getImage'])->name('get-image');
 });
