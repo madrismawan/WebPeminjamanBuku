@@ -5,12 +5,22 @@ namespace App\Http\Controllers\admin\manajemen_pengguna;
 use App\Http\Controllers\Controller;
 use App\Models\Peminjams;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PDOException;
 
 class ManajemenPenggunaController extends Controller
 {
+
+    public function show(Request $request)
+    {
+        dd("risawa");
+    }
+
+
+
 
     public function index(Request $request)
     {
@@ -71,7 +81,7 @@ class ManajemenPenggunaController extends Controller
                 'program_studi' => $request->program_studi
             ]);
             DB::commit();
-        }catch(ModelNotFoundException $err){
+        }catch(ModelNotFoundException | PDOException | QueryException | \Throwable | \Exception $err){
             DB::rollBack();
             return redirect()->back()->with([
                 'status' => 'fail',
@@ -251,8 +261,6 @@ class ManajemenPenggunaController extends Controller
                 'message' => 'Data peminjam berhasil dihapus pada sistem'
             ]);
         // END RETURN
-
-
 
     }
 

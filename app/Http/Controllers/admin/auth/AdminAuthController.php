@@ -13,6 +13,8 @@ use PDOException;
 
 class AdminAuthController extends Controller
 {
+
+
     public function login(Request $request)
     {
         return view('pages.auth.login');

@@ -169,8 +169,6 @@
 
 
 @push('js')
-
-
       <script src="{{asset('base-template/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
       <!-- Select2 -->
       <script src="{{asset('base-template/plugins/select2/js/select2.full.min.js')}}"></script>
@@ -182,8 +180,6 @@
       <!-- Tempusdominus Bootstrap 4 -->
       <script src="{{asset('base-template/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
 
-      <!-- date-range-picker -->
-      <script src="{{asset('base-template/plugins/daterangepicker/daterangepicker.js')}}"></script>
 
 
     <script type="text/javascript">

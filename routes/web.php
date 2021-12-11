@@ -23,6 +23,8 @@ Route::get('/', function () {
 });
 
 
+
+
 Route::prefix('auth')->group(function () {
     Route::get('login', [AuthAdminAuthController::class, 'login'])->name('auth.login');
     Route::post('login', [AuthAdminAuthController::class, 'loginPost'])->name('auth.login.post');
@@ -33,8 +35,13 @@ Route::prefix('auth')->group(function () {
 Route::group(['prefix'=>'admin', 'middleware'=>'auth.admin'], function(){
     Route::get('dashboard', [AdminDashboardController::class, 'dashboard'])->name('admin.dashboard');
 
-    Route::get('manajemen-buku/data-buku', [ManajemenBukuController::class, 'index'])->name('admin.manajemen-buku.data');
-    Route::get('manajemen-buku/data-buku/create', [ManajemenBukuController::class, 'create'])->name('admin.manajemen-buku.create');
+
+    Route::prefix('manajemen-buku')->group(function(){
+        Route::get('', [ManajemenBukuController::class, 'index'])->name('admin.manajemen-buku.data');
+        Route::get('create', [ManajemenBukuController::class, 'create'])->name('admin.manajemen-buku.create');
+        Route::post('store', [ManajemenBukuController::class, 'store'])->name('admin.manajemen-buku.store');
+
+    });
 
 
     Route::prefix('manajemen-pengguna')->group(function(){
@@ -45,8 +52,10 @@ Route::group(['prefix'=>'admin', 'middleware'=>'auth.admin'], function(){
         Route::get('edit/{id?}', [ManajemenPenggunaController::class, 'edit'])->name('admin.manajemen-pengguna.edit');
         Route::put('update', [ManajemenPenggunaController::class, 'update'])->name('admin.manajemen-pengguna.update');
         Route::delete('delete/{id?}', [ManajemenPenggunaController::class, 'delete'])->name('admin.manajemen-pengguna.delete');
+
     });
 
+    Route::get('show', [ManajemenPenggunaController::class, 'show'])->name('arah');
 
 
 });

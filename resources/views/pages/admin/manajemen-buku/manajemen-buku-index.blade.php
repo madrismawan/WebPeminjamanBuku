@@ -9,6 +9,10 @@
             object-fit: cover;
         }
     </style>
+    <script src="{{asset('base-template\dist\js\sweetalert2.min.js')}}"></script>
+    <link rel="stylesheet" href="{{asset('base-template\dist\css\sweetalert2.min.css')}}">
+
+
 @endpush
 
 
@@ -131,6 +135,18 @@
 @endsection
 
 @push('js')
+
+    <script src="{{asset('base-template\dist\js\sweetalert2.all.min.js')}}"></script>
+
+    <script>
+        @if(Session::has('status'))
+            Swal.fire({
+                icon:  @if(Session::has('icon')){!! '"'.Session::get('icon').'"' !!} @else 'question' @endif,
+                title: @if(Session::has('title')){!! '"'.Session::get('title').'"' !!} @else 'Oppss...'@endif,
+                text: @if(Session::has('message')){!! '"'.Session::get('message').'"' !!} @else 'Oppss...'@endif,
+            });
+        @endif
+    </script>
 
     <script type="text/javascript">
         $(document).ready(function(){
