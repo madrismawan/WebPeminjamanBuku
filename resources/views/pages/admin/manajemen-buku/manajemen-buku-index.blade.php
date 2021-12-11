@@ -60,67 +60,23 @@
         </div>
         <div class="col-9">
             <div class="row">
-                <div class="col-12 col-sm-3" data-category="1" data-sort="white sample">
-                    <a href="">
-                        <div class="card p-2 shadow cursor" role="button">
-                            <img src="{{asset('base-template/dist/img/sampul/percy.jpg')}}" style="height:220px; object-fit:cover;" alt="white sample"/>
-                            <div class="text-center text-dark p-1 fs-4">
-                                <label class="m-0">BK01</label>
-                                <p class="text-center text-dark m-0 font-weight-bold">Percy Jakson</p>
-                                <div class="row justify-content-center">
-                                    Oleh :<p class="text-center text-dark m-0"> Tiga Serangkai</p>
+                @foreach ($dataBuku as $data )
+                    <div class="col-12 col-sm-3" data-category="1" data-sort="white sample">
+                        <a href="{{route('admin.manajemen-buku.detail',$data->id)}}">
+                            <div class="card p-2 shadow cursor" role="button">
+                                <img src="{{route('get-image-sampul-buku',$data->id)}}" style="height:220px; object-fit:cover;" alt="white sample"/>
+                                <div class="text-center text-dark p-1 fs-4">
+                                    <label class="m-0">{{$data->kode}}</label>
+                                    <p class="text-center text-dark m-0 font-weight-bold">{{$data->judul}}</p>
+                                    <div class="row justify-content-center">
+                                        Oleh :<p class="text-center text-dark m-0"> {{$data->penerbit}}</p>
+                                    </div>
+                                    <p class="text-center text-dark m-0">{{$data->tahun_terbit}}</p>
                                 </div>
-                                <p class="text-center text-dark m-0">2021</p>
                             </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-12 col-sm-3" data-category="1" data-sort="white sample">
-                    <a href="">
-                        <div class="card p-2 shadow cursor" role="button">
-                            <img src="{{asset('base-template/dist/img/sampul/marvel.jpg')}}" style="height:220px; object-fit:cover;" alt="white sample"/>
-                            <div class="text-center text-dark p-1 fs-4">
-                                <label class="m-0">BK01</label>
-                                <p class="text-center text-dark m-0 font-weight-bold">Percy Jakson</p>
-                                <div class="row justify-content-center">
-                                    By :<p class="text-center text-dark m-0"> Tiga Serangkai</p>
-                                </div>
-                                <p class="text-center text-dark m-0">2021</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-12 col-sm-3" data-category="1" data-sort="white sample">
-                    <a href="">
-                        <div class="card p-2 shadow cursor" role="button">
-                            <img src="{{asset('base-template/dist/img/sampul/titanic.png')}}" style="height:220px; object-fit:cover;" alt="white sample"/>
-                            <div class="text-center text-dark p-1 fs-4">
-                                <label class="m-0">BK01</label>
-                                <p class="text-center text-dark m-0 font-weight-bold">Percy Jakson</p>
-                                <div class="row justify-content-center">
-                                    By :<p class="text-center text-dark m-0"> Tiga Serangkai</p>
-                                </div>
-                                <p class="text-center text-dark m-0">2021</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-12 col-sm-3" data-category="1" data-sort="white sample">
-                    <a href="">
-                        <div class="card p-2 shadow cursor" role="button">
-                            <img src="{{asset('base-template/dist/img/sampul/percy.jpg')}}" style="height:220px; object-fit:cover;" alt="white sample"/>
-                            <div class="text-center text-dark p-1 fs-4">
-                                <label class="m-0">BK01</label>
-                                <p class="text-center text-dark m-0 font-weight-bold">Percy Jakson</p>
-                                <div class="row justify-content-center">
-                                    By :<p class="text-center text-dark m-0"> Tiga Serangkai</p>
-                                </div>
-                                <p class="text-center text-dark m-0">2021</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
+                        </a>
+                    </div>
+                @endforeach
 
             </div>
 

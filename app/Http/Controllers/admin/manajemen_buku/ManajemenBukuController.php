@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin\manajemen_buku;
 use App\Http\Controllers\Controller;
 use App\ImageHelper;
 use App\Models\Buku;
+use App\Models\Peminjams;
 use App\Mover;
 use Illuminate\Support\Facades\File;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -13,13 +14,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Mockery\Expectation;
+use PhpParser\Node\Expr\FuncCall;
 
 class ManajemenBukuController extends Controller
 {
 
     public function index(Request $request)
     {
-        return view('pages.admin.manajemen-buku.manajemen-buku-index');
+        $dataBuku = Buku::all();
+        return view('pages.admin.manajemen-buku.manajemen-buku-index', compact('dataBuku'));
     }
 
     public function create(Request $request)
@@ -27,6 +31,7 @@ class ManajemenBukuController extends Controller
         return view('pages.admin.manajemen-buku.manajemen-buku-create');
     }
 
+    // START INPUT DATA BUKU TO DATABASE
     public function store(Request $request)
     {
         // SECURITY
@@ -56,7 +61,7 @@ class ManajemenBukuController extends Controller
         // MAIN LOGIC
             try{
                 DB::beginTransaction();
-                $folder = 'app/buku/foto_sampul';
+                $folder = 'app/buku/foto_sampul/';
                 $filename =  ImageHelper::moveImage($request->file,$folder);
 
                 Buku::create([
@@ -93,11 +98,81 @@ class ManajemenBukuController extends Controller
             ]);
         // // END RETURN
     }
+    // END INPUT DATA BUKU TO DATABASE
+
+
+    // START GET DATA SAMPUL BUKU
+    public function getSampulBuku (Request $request)
+    {
+        // SECURITY
+        $validator = Validator::make(['id' =>$request->id],[
+            'id' => 'required|exists:bukus,id',
+        ]);
+
+        if($validator->fails()){
+            return redirect()->back()->with([
+                'status' => 'fail',
+                'icon' => 'error',
+                'title' => 'Gagal Mengambil Sampul Buku',
+                'message' => 'Gagal Mengambil Sampul Buku, Terdapat kendala pada sistem !!',
+            ]);
+        }
+        // END SECURITY
+
+        // MAIN LOGIC
+        try{
+            $path = Buku::findOrFail($request->id)->foto_sampul;
+            return ImageHelper::getImage($path);
+        }catch(Expectation | ModelNotFoundException $err){
+            return redirect()->back()->with([
+                'status' => 'fail',
+                'icon' => 'error',
+                'title' => 'Gagal Mengambil Sampul Buku',
+                'message' => 'Gagal Membuat Data Buku, apabila diperlukan mohon hubungi developer sistem`',
+            ]);
+        }
+
+        // END LOGIC
+
+    }
+    // END GET DATA SAMPUL BUKU
 
 
     public function detail(Request $request)
     {
-        return view('pages.admin.manajemen-buku.manajemen-buku-detail');
+        // SECURITY
+        $validator = Validator::make(['id' =>$request->id],[
+            'id' => 'required|exists:bukus,id',
+        ]);
+
+        if($validator->fails()){
+            return redirect()->back()->with([
+                'status' => 'fail',
+                'icon' => 'error',
+                'title' => 'Gagal Mengambil Sampul Buku',
+                'message' => 'Gagal Mengambil Sampul Buku, Terdapat kendala pada sistem !!',
+            ]);
+        }
+         // END SECURITY
+
+        //  MAIN LOGIC
+         try{
+            $dataBuku = Buku::findOrFail($request->id);
+        }catch(Expectation | ModelNotFoundException $err){
+            return redirect()->back()->with([
+                'status' => 'fail',
+                'icon' => 'error',
+                'title' => 'Gagal Mengambil Sampul Buku',
+                'message' => 'Gagal Membuat Data Buku, apabila diperlukan mohon hubungi developer sistem`',
+            ]);
+        }
+
+        // END LOGIC
+
+        // RETURN
+            return view('pages.admin.manajemen-buku.manajemen-buku-detail',compact('dataBuku'));
+        // END RETURN
+
     }
 
 

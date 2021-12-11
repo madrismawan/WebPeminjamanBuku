@@ -45,6 +45,8 @@ Route::group(['prefix'=>'admin', 'middleware'=>'auth.admin'], function(){
         Route::get('detail/{id?}', [ManajemenBukuController::class, 'detail'])->name('admin.manajemen-buku.detail');
         Route::get('show', [ManajemenBukuController::class, 'show'])->name('admin.manajemen-buku.show');
 
+        Route::get('get-image-sampul/{id?}', [ManajemenBukuController::class, 'getSampulBuku'])->name('get-image-sampul-buku');
+
     });
 
 
@@ -63,6 +65,3 @@ Route::group(['prefix'=>'admin', 'middleware'=>'auth.admin'], function(){
 
 });
 
-Route::prefix('helper')->group(function(){
-    Route::get('get-image/{path?}', [ManajemenPenggunaController::class, 'getImage'])->name('get-image');
-});

@@ -35,7 +35,7 @@
 
                     <div class="nav flex-column nav-pills card-body p-2" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                         <div class="card p-2 shadow cursor col-6 col-sm-12" role="button">
-                            <img src="{{asset('base-template/dist/img/sampul/percy.jpg')}}" style="object-fit:cover;" alt="white sample"/>
+                            <img src="{{route('get-image-sampul-buku',$dataBuku->id)}}" style="object-fit:cover;" alt="white sample"/>
                             {{-- <div class="text-center text-dark p-1 fs-4">
                                 <label class="m-0">BK01</label>
                                 <p class="text-center text-dark m-0 font-weight-bold">Percy Jakson</p>

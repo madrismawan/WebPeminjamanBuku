@@ -258,9 +258,6 @@ class ManajemenPenggunaController extends Controller
 
     }
 
-    public function getImage(Request $request){
-        dd($request->path);
-    }
 
 
 }
