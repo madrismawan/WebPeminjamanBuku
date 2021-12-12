@@ -43,9 +43,13 @@ Route::group(['prefix'=>'admin', 'middleware'=>'auth.admin'], function(){
         Route::get('create', [ManajemenBukuController::class, 'create'])->name('admin.manajemen-buku.create');
         Route::post('store', [ManajemenBukuController::class, 'store'])->name('admin.manajemen-buku.store');
         Route::get('detail/{id?}', [ManajemenBukuController::class, 'detail'])->name('admin.manajemen-buku.detail');
-        Route::get('show', [ManajemenBukuController::class, 'show'])->name('admin.manajemen-buku.show');
+        Route::get('edit/{id?}', [ManajemenBukuController::class, 'edit'])->name('admin.manajemen-buku.edit');
+        Route::put('update', [ManajemenBukuController::class, 'update'])->name('admin.manajemen-buku.update');
+        Route::delete('delete/{id?}', [ManajemenBukuController::class, 'delete'])->name('admin.manajemen-buku.delete');
 
         Route::get('get-image-sampul/{id?}', [ManajemenBukuController::class, 'getSampulBuku'])->name('get-image-sampul-buku');
+
+
 
     });
 

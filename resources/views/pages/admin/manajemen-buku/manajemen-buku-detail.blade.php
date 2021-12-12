@@ -25,7 +25,7 @@
             <div class="col-3">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Foto Sampul Buku </h3>
+                        <h3 class="card-title">Foto Sampul Buku</h3>
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                 <i class="fas fa-minus"></i>
@@ -57,54 +57,54 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Nama Walaka</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" value="I Wayan Sutama" disabled>
+                                    <label for="exampleInputEmail1">Kode Buku</label>
+                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" value="{{$dataBuku->kode}}" disabled>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">Tempat/Tanggal Lahir</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter email" disabled value="Denpasar, 31 Desember 1950">
+                                    <label for="exampleInputPassword1">Judul Buku</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter email" disabled value="{{$dataBuku->judul}}">
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Pendidikan</label>
-                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password" disabled value="SMA">
+                                    <label for="exampleInputEmail1">Penerbit</label>
+                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password" disabled value="{{$dataBuku->penerbit}}">
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">Pekerjaan Walaka</label>
-                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password"disabled value="Petani">
+                                    <label for="exampleInputPassword1">Tahun Terbit</label>
+                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password"disabled value="{{$dataBuku->tahun_terbit}}">
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="'card-body">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Nama Sulinggih</label>
-                                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter email" value="Ida Begawan Agre Segening" disabled>
+                                        <label for="exampleInputEmail1">Jumlah Halaman</label>
+                                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter email" value="{{$dataBuku->jumlah_halaman}}" disabled>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputPassword1">Nama Istri</label>
-                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password" value="Ida Pedanda Istri Stiti Yogi" disabled>
+                                        <label for="exampleInputPassword1"> Pengarang</label>
+                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password" value="{{$dataBuku->pengarang}}" disabled>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputPassword1">Pekerjaan Walaka</label>
-                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password"disabled value="Petani">
+                                        <label for="exampleInputPassword1">Kondisi Buku</label>
+                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password"disabled value="{{$dataBuku->kondisi}}">
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputPassword1">Pekerjaan Walaka</label>
-                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password"disabled value="Petani">
+                                        <label for="exampleInputPassword1">Status Peminjaman</label>
+                                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password"disabled value="{{$dataBuku->status}}">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group col-12">
-                                <label for="exampleInputPassword1">Pekerjaan Walaka</label>
-                                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password"disabled value="Petani">
+                                <label for="exampleInputPassword1">Deskripsi Buku</label>
+                                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password"disabled value="{{$dataBuku->deskripsi}}">
                             </div>
                             <div class="form-group col-12">
                                 <div class="row">
                                     <div class="col-6">
-                                        <a href="http://127.0.0.1:8000/admin/manajemen-pengguna" type="submit" class="btn btn-secondary btn-sm">Kembali</a>
+                                        <a href="{{route('admin.manajemen-buku.data')}}" type="submit" class="btn btn-secondary btn-sm">Kembali</a>
                                     </div>
                                     <div class="col-6">
-                                        <a href="http://127.0.0.1:8000/admin/manajemen-pengguna/edit/1" type="submit" class="btn btn-primary btn-sm float-right">Edit</a>
+                                        <a href="{{route('admin.manajemen-buku.edit',$dataBuku->id)}}" type="submit" class="btn btn-primary btn-sm float-right">Edit</a>
                                     </div>
                                 </div>
                             </div>
