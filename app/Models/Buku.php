@@ -24,11 +24,6 @@ class Buku extends Model
         'foto_sampul'
     ];
 
-    public function comments()
-    {
-        return $this->hasMany(Comment::class);
-    }
-
     public function trxpeminjams()
     {
         return $this->belongsToMany(TrxPinjamans::class,'trx_pinjaman_details','buku_id','trx_id')

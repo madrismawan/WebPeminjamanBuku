@@ -7,14 +7,10 @@
     <link rel="stylesheet" href="{{asset('base-template/plugins/select2/css/select2.min.css')}}">
     <link rel="stylesheet" href="{{asset('base-template/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
 
-    <!-- daterange picker -->
-    <link rel="stylesheet" href="{{asset('base-template/plugins/daterangepicker/daterangepicker.css')}}">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet"/>
 
-    <script src="{{asset('base-template\dist\js\sweetalert2.min.js')}}"></script>
-    <link rel="stylesheet" href="{{asset('base-template\dist\css\sweetalert2.min.css')}}">
 
 @endpush
 
@@ -106,7 +102,7 @@
                                     <div class="form-group">
                                         <label>Tahun Terbit <span class="text-danger">*</span></label>
                                         <div class="input-group mb-3">
-                                            <input name="tahun_terbit" type="year" class="form-control @error('tahun_terbit') is-invalid @enderror" name="datepicker" id="datepicker" />
+                                            <input placeholder="yyyy" name="tahun_terbit" type="year" class="form-control @error('tahun_terbit') is-invalid @enderror" name="datepicker" id="datepicker" />
                                             <div class="input-group-append">
                                                 <div class="input-group-text">
                                                     <span class="fas fa-book"></span>
@@ -170,9 +166,10 @@
                                 <div class="form-group col-12">
                                     <label>Foto Sampul</label>
                                     <div class="input-group mb-2">
+
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input @error('file') is-invalid @enderror" name="file" id="exampleInputFile2" >
-                                            <label class="custom-file-label " for="exampleInputFile2">Upload Foto Sampul</label>
+                                            <input type="file" class="custom-file-input @error('file') is-invalid @enderror" name="file" id="customFile" >
+                                            <label class="custom-file-label " for="customFile">Upload Foto Sampul</label>
                                         </div>
                                         @error('file')
                                             <div class="invalid-feedback text-start">
@@ -212,10 +209,15 @@
     <!-- Select2 -->
     <script src="{{asset('base-template/plugins/select2/js/select2.full.min.js')}}"></script>
 
-    <<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="{{asset('base-template/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
 
     <script type="text/javascript">
         $(document).ready(function(){
+
+            $(function () {
+                bsCustomFileInput.init();
+            });
 
             $("#datepicker").datepicker({
                 format: "yyyy",
@@ -239,6 +241,10 @@
         $(document).ready(function(){
             $('#side-manajemen-buku').addClass('menu-open');
             $('#side-manajemen-buku-tambah').addClass('active');
+        });
+
+        $(function () {
+            bsCustomFileInput.init();
         });
     </script>
 

@@ -65,19 +65,22 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>K01</td>
-                                            <td>Percy Jackson</td>
-                                            <td>Budiman Mukidi</td>
-                                            <td>12-12-2021</td>
-                                            <td>Masih Terpinjam</td>
-                                            <td>
-                                                <a href="#" class="btn btn-secondary btn-sm"><i class="fas fa-eye"></i></a>
-                                                <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-check"></i></a>
-                                                <a class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
-                                            </td>
-                                        </tr>
+                                        @foreach ($dataTransaksiDetail as $data )
+                                            {{-- {{$data->trxpeminjaman->peminjams-<}} --}}
+                                            <tr>
+                                                <td>{{$loop->iteration}}</td>
+                                                <td>{{$data->bukus->kode}}</td>
+                                                <td>{{$data->bukus->judul}}</td>
+                                                <td>{{$data->trxpeminjaman->peminjams->nama}}</td>
+                                                <td>{{$data->trxpeminjaman->tanggal}}</td>
+                                                <td>{{$data->status}}</td>
+                                                <td>
+                                                    <a href="#" class="btn btn-secondary btn-sm"><i class="fas fa-eye"></i></a>
+                                                    <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-check"></i></a>
+                                                    <a class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                     <tfoot >
                                         <tr>

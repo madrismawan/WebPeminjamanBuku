@@ -25,9 +25,6 @@ Route::get('/', function () {
 
 });
 
-
-
-
 Route::prefix('auth')->group(function () {
     Route::get('login', [AuthAdminAuthController::class, 'login'])->name('auth.login');
     Route::post('login', [AuthAdminAuthController::class, 'loginPost'])->name('auth.login.post');
@@ -65,6 +62,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>'auth.admin'], function(){
         Route::get('', [PeminjamanController::class, 'index'])->name('admin.trx-peminjaman.index');
         Route::get('create', [PeminjamanController::class, 'create'])->name('admin.trx-peminjaman.create');
         Route::post('store', [PeminjamanController::class, 'store'])->name('admin.trx-peminjaman.store');
+        Route::get('getdata', [PeminjamanController::class, 'get'])->name('admin.trx-peminjaman.get');
 
     });
 
