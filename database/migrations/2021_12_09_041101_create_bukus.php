@@ -31,7 +31,7 @@ class CreateBukus extends Migration
         });
 
         Buku::create([
-            'kode'=> 'K01',
+            'kode'=> 'KDB1',
             'judul'=> 'Titanic',
             'deskripsi'=> 'Titanic adalah sebuah film epik, roman, dan bencana Amerika Serikat produksi tahun 1997 yang diskenarioi sekaligus disutradarai oleh James Cameron. Film ini bercerita tentang kisah cinta antara Jack dan Rose.',
             'penerbit'=> 'Balai Pustaka',
@@ -44,7 +44,7 @@ class CreateBukus extends Migration
         ]);
 
         Buku::create([
-            'kode'=> 'K02',
+            'kode'=> 'KDB2',
             'judul'=> 'Koala Kumal',
             'deskripsi'=> 'Koala Kumal merupakan film komedi romantis Indonesia yang dirilis 5 Juli 2016. Film ini dibintangi oleh Raditya Dika dan Acha Septriasa, serta menjadi film debut bagi penyanyi Sheryl Sheinafia.',
             'penerbit'=> 'Tiga Serangkai',
@@ -57,7 +57,7 @@ class CreateBukus extends Migration
         ]);
 
         Buku::create([
-            'kode'=> 'K03',
+            'kode'=> 'KDB3',
             'judul'=> 'Percy Jackson ',
             'deskripsi'=> 'Perseus "Percy" Jackson adalah tokoh protagonis utama di serial novel Percy Jackson & Dewa-Dewi Olympia serta sekuelnya, The Heroes of Olympus.',
             'penerbit'=> 'Tiga Serangkai',
@@ -71,7 +71,7 @@ class CreateBukus extends Migration
 
 
         Buku::create([
-            'kode'=> 'K04',
+            'kode'=> 'KDB4',
             'judul'=> 'Marvel Comics',
             'deskripsi'=> 'Marvel Comics Group adalah nama suatu perusahaan dari Amerika Serikat yang memproduksi buku komik dan media lain yang berkaitan.',
             'penerbit'=> 'Balai Pustaka',

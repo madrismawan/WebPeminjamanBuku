@@ -35,9 +35,10 @@ class ManajemenBukuController extends Controller
     // START INPUT DATA BUKU TO DATABASE
     public function store(Request $request)
     {
+
         // SECURITY
             $validator = Validator::make($request->all(),[
-                'kode_buku' => 'required',
+                // 'kode_buku' => 'required',
                 'judul_buku' => 'required',
                 'jumlah_halaman' => 'required',
                 'tahun_terbit' => 'required|numeric',
@@ -62,11 +63,20 @@ class ManajemenBukuController extends Controller
         // MAIN LOGIC
             try{
                 DB::beginTransaction();
+                // Move Image To Storage
                 $folder = 'app/buku/foto_sampul/';
                 $filename =  ImageHelper::moveImage($request->file,$folder);
+                // Create Kode Buku
+                $lastKodebuku = Buku::orderBy('created_at', 'desc')->first();
+                if($lastKodebuku == null){
+                    $newKode = "KDB1";
+                }else{
+                    $convert = preg_replace('/[^0-9]/', '', $lastKodebuku->kode)+1;
+                    $newKode = ("KDB".$convert);
+                }
 
                 Buku::create([
-                    'kode'=> $request->kode_buku,
+                    'kode'=> $newKode,
                     'judul'=> $request->judul_buku,
                     'deskripsi'=> $request->deskripsi_buku,
                     'penerbit'=> $request->penerbit,
@@ -97,7 +107,7 @@ class ManajemenBukuController extends Controller
                 'title' => 'Berhasil Membuat Data Buku',
                 'message' => 'Berhasil Membuat Data Buku, buku sudah dapat di pinjam`',
             ]);
-        // // END RETURN
+        // END RETURN
     }
     // END INPUT DATA BUKU TO DATABASE
 
@@ -217,7 +227,6 @@ class ManajemenBukuController extends Controller
 
     public function update(Request $request)
     {
-
         // SECURITY
             $validator = Validator::make($request->all(),[
                 'id'=> 'required',
@@ -316,7 +325,9 @@ class ManajemenBukuController extends Controller
 
         // MAIN LOGIC
             try{
-                Buku::findOrFail($request->id)->delete();
+                $dataBuku = Buku::findOrFail($request->id);
+                File::delete(storage_path($dataBuku->foto_sampul));
+                $dataBuku->delete();
             }catch(ModelNotFoundException $err){
                 return redirect()->back()->with([
                     'status' => 'success',

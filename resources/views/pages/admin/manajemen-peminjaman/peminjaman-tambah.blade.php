@@ -64,7 +64,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Tanggal Transaksi Peminjaman Buku <span class="text-danger">*</span></label>
-                                            <input name="tanggal" value="{{date('Y-m-d')}}" type="date" class="form-control" id="exampleInputEmail1" placeholder="dd-mm-yyyy" disabled>
+                                            <input name="tanggal" value="{{date('d-m-Y')}}" type="text" class="form-control" id="exampleInputEmail1" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask disabled>
                                         </div>
                                     </div>
                                     <div class="col-6">
@@ -141,22 +141,15 @@
     <!-- InputMask -->
     <script src="{{asset('base-template/plugins/moment/moment.min.js')}}"></script>
     <script src="{{asset('base-template/plugins/inputmask/jquery.inputmask.min.js')}}"></script>
-    <!-- bootstrap color picker -->
-    <script src="{{asset('base-template/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js')}}"></script>
     <!-- Tempusdominus Bootstrap 4 -->
     <script src="{{asset('base-template/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
-    <!-- Bootstrap Switch -->
-    <script src="{{asset('base-template/plugins/bootstrap-switch/js/bootstrap-switch.min.js')}}"></script>
-    <!-- dropzonejs -->
-    <script src="{{asset('base-template/plugins/dropzone/min/dropzone.min.js')}}"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="{{asset('base-template/dist/js/demo.js')}}"></script>
-
 
 
     <script type="text/javascript">
         $('#mySelect2').select2('data');
 
+        $('#datemask').inputmask('yyyy-mm-dd', { 'placeholder': 'dd-mm-yyyy' })
+        $('[data-mask]').inputmask()
     </script>
 
     <script>

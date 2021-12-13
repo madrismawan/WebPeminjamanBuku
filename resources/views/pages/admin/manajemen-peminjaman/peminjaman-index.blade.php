@@ -72,7 +72,7 @@
                                                 <td>{{$data->bukus->kode}}</td>
                                                 <td>{{$data->bukus->judul}}</td>
                                                 <td>{{$data->trxpeminjaman->peminjams->nama}}</td>
-                                                <td>{{$data->trxpeminjaman->tanggal}}</td>
+                                                <td>{{date('d-m-Y',strtotime($data->trxpeminjaman->tanggal))}}</td>
                                                 <td>{{$data->status}}</td>
                                                 <td>
                                                     <a href="#" class="btn btn-secondary btn-sm"><i class="fas fa-eye"></i></a>

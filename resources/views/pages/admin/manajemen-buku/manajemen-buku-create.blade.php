@@ -48,7 +48,7 @@
                         <form action="{{route('admin.manajemen-buku.store')}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row px-lg-4">
-                                <div class="col-12">
+                                {{-- <div class="col-12">
                                     <div class="form-group">
                                         <label>Kode Buku <span class="text-danger">*</span></label>
                                         <div class="input-group mb-3">
@@ -65,7 +65,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label>Judul <span class="text-danger">*</span></label>
