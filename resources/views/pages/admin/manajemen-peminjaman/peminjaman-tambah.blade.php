@@ -78,7 +78,7 @@
                                             </select>
                                             @error('peminjam')
                                                 <div class="invalid-feedback text-start">
-                                                    {{$errors->first('program_studi') }}
+                                                    {{$errors->first('peminjam') }}
                                                 </div>
                                             @enderror
                                         </div>
@@ -98,14 +98,19 @@
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label>Buku yang di Pinjam</label>
-                                            <select multiple name="buku[]" class="select2bs4" multiple="multiple" data-placeholder="Pilihlah List Buku"
+                                            <select multiple name="buku[]" class="select2bs4 @error('buku') is-invalid @enderror" multiple="multiple" data-placeholder="Pilihlah List Buku"
                                                 style="width: 100%;">
                                                 @foreach ($dataBuku as $data)
                                                 <option value="{{$data->id}}">{{$data->kode}} - {{$data->judul}}</option>
                                                 @endforeach
                                             </select>
-                                            </div>
+                                        </div>
                                     </div>
+                                    @error('buku')
+                                        <div class="invalid-feedback text-start">
+                                            {{$errors->first('buku')}}
+                                        </div>
+                                    @enderror
                                     <div class="col-12 d-flex justify-content-end">
                                         <button type="submit" class="btn btn-primary">Submit Peminjaman</button>
                                     </div>
