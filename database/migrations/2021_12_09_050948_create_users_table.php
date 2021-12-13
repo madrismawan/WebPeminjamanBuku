@@ -34,7 +34,7 @@ class CreateUsersTable extends Migration
             'nama' => 'pengelola',
             'email' => 'pengelola@gmail.com',
             'password' => Hash::make('pengelola1234'),
-            'jabatan' => 'pegelola'
+            'jabatan' => 'staff administrasi'
         ]);
         User::create([
             'nama' => 'staff administrasi',

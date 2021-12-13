@@ -96,7 +96,7 @@
                             </div>
                             <div class="form-group col-12">
                                 <label for="exampleInputPassword1">Deskripsi Buku</label>
-                                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password"disabled value="{{$dataBuku->deskripsi}}">
+                                <textarea class="form-control" disabled> {{$dataBuku->deskripsi}}</textarea>
                             </div>
                             <div class="form-group col-12">
                                 <div class="row">

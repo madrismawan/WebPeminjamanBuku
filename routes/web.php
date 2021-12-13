@@ -5,6 +5,7 @@ use App\Http\Controllers\admin\auth\AdminAuthController as AuthAdminAuthControll
 use App\Http\Controllers\admin\dashboard\AdminDashboardController;
 use App\Http\Controllers\admin\manajemen_buku\ManajemenBukuController;
 use App\Http\Controllers\admin\manajemen_pengguna\ManajemenPenggunaController;
+use App\Http\Controllers\admin\peminjaman_buku\PeminjamanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,7 +38,6 @@ Route::prefix('auth')->group(function () {
 Route::group(['prefix'=>'admin', 'middleware'=>'auth.admin'], function(){
     Route::get('dashboard', [AdminDashboardController::class, 'dashboard'])->name('admin.dashboard');
 
-
     Route::prefix('manajemen-buku')->group(function(){
         Route::get('', [ManajemenBukuController::class, 'index'])->name('admin.manajemen-buku.data');
         Route::get('create', [ManajemenBukuController::class, 'create'])->name('admin.manajemen-buku.create');
@@ -48,11 +48,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>'auth.admin'], function(){
         Route::delete('delete/{id?}', [ManajemenBukuController::class, 'delete'])->name('admin.manajemen-buku.delete');
 
         Route::get('get-image-sampul/{id?}', [ManajemenBukuController::class, 'getSampulBuku'])->name('get-image-sampul-buku');
-
-
-
     });
-
 
     Route::prefix('manajemen-pengguna')->group(function(){
         Route::get('', [ManajemenPenggunaController::class, 'index'])->name('admin.manajemen-pengguna.index');
@@ -65,7 +61,12 @@ Route::group(['prefix'=>'admin', 'middleware'=>'auth.admin'], function(){
 
     });
 
+    Route::prefix('trx-peminjaman')->group(function(){
+        Route::get('', [PeminjamanController::class, 'index'])->name('admin.trx-peminjaman.index');
+        Route::get('create', [PeminjamanController::class, 'create'])->name('admin.trx-peminjaman.create');
+        Route::post('store', [PeminjamanController::class, 'store'])->name('admin.trx-peminjaman.store');
 
+    });
 
 });
 

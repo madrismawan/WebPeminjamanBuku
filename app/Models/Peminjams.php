@@ -20,4 +20,10 @@ class Peminjams extends Model
         'program_studi',
         'email'
     ];
+
+    public function trxpeminjams()
+    {
+        return $this->hasMany(TrxPinjamans::class, 'peminjam_id','id');
+    }
+
 }

@@ -15,7 +15,6 @@ class CreateTrxPinjamanDetails extends Migration
     {
         Schema::create('trx_pinjaman_details', function (Blueprint $table) {
             $table->id();
-             $table->integer("semester")->length(11);
              $table->foreignId("trx_id")->references("id")->on("trx_pinjamans")->onDelete("cascade");
              $table->foreignId("buku_id")->references("id")->on("bukus")->onDelete("cascade");
              $table->enum('status',['Masih dipinjam','Sudah kembali']);

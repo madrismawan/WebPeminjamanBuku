@@ -15,7 +15,6 @@ class CreateTrxPinjamans extends Migration
     {
         Schema::create('trx_pinjamans', function (Blueprint $table) {
             $table->id();
-            $table->integer("semester")->length(11);
             $table->foreignId("peminjam_id")->references("id")->on("peminjams")->onDelete("cascade");
             $table->date('tanggal');
             $table->timestamps();

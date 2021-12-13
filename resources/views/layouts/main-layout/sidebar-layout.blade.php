@@ -99,7 +99,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item ml-3">
-                            <a id="side-peminjaman-buku-data" href="#" class="nav-link p-2">
+                            <a id="side-peminjaman-buku-data" href="{{route('admin.trx-peminjaman.index')}}" class="nav-link p-2">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Data Peminjaman</p>
                             </a>
@@ -107,7 +107,7 @@
                     </ul>
                     <ul class="nav nav-treeview">
                         <li class="nav-item ml-3">
-                            <a id="side-peminjaman-buku-tambah" href="#" class="nav-link p-2">
+                            <a id="side-peminjaman-buku-tambah" href="{{route('admin.trx-peminjaman.create')}}" class="nav-link p-2">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Tambah Peminjaman</p>
                             </a>
