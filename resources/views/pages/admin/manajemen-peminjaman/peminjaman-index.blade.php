@@ -35,7 +35,35 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Status Peminjaman</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="nav flex-column nav-pills card-body p-2" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a id="peminjam-tabs" href="#peminjam-table" class="nav-link active" data-toggle="pill" role="tab" aria-controls="peminjam-table" aria-selected="true">
+                                    Masih dipinjam <span class="badge bg-warning float-right">
+                                        {{count($dataTransaksiDetail->where('status','Masih dipinjam'))}}
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="kembali-tabs"  href="#kembali-table" class="nav-link" data-toggle="pill" role="tab" aria-controls="kembali-table" aria-selected="false">
+                                    Sudah Kembali <span class="badge bg-warning float-right">{{count($dataTransaksiDetail->where('status','Sudah kembali'))}}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
                 <div class="card card-primary card-outline tab-content" id="v-pills-tabContent">
                     <div class="card-header my-auto">
                         <div class="row">
@@ -49,10 +77,10 @@
                     </div>
 
                     {{-- Start Data Table Sulinggih --}}
-                    <div class="tab-pane fade show active" id="sulinggih-table" role="tabpanel" aria-labelledby="sulinggih-tabs">
+                    <div class="tab-pane fade show active" id="peminjam-table" role="tabpanel" aria-labelledby="peminjam-tabs">
                         <div class="card-body p-0">
                             <div class="table-responsive mailbox-messages p-2">
-                                <table id="peminjam" class="table table-bordered table-hover ">
+                                <table id="tb-dipinjam" class="table table-bordered table-hover ">
                                     <thead >
                                         <tr>
                                             <th>No</th>
@@ -60,22 +88,21 @@
                                             <th>Judul Buku</th>
                                             <th>Peminjam</th>
                                             <th>Tanggal Pinjam</th>
-                                            <th>Status</th>
+                                            {{-- <th>Status</th> --}}
                                             <th>Tindakan</th>
                                             {{-- <input id="kondisiBuku" name='kondisi'> --}}
 
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($dataTransaksiDetail as $data )
-                                            {{-- {{$data->trxpeminjaman->peminjams-<}} --}}
+                                        @foreach ($dataTransaksiDetail->where('status','Masih dipinjam') as $data )
                                             <tr>
                                                 <td>{{$loop->iteration}}</td>
                                                 <td>{{$data->bukus->kode}}</td>
                                                 <td>{{$data->bukus->judul}}</td>
                                                 <td>{{$data->trxpeminjaman->peminjams->nama}}</td>
                                                 <td>{{date('d-m-Y',strtotime($data->trxpeminjaman->tanggal))}}</td>
-                                                <td>{{$data->status}}</td>
+                                                {{-- <td>{{$data->status}}</td> --}}
                                                 <td>
                                                     <a href="#" class="btn btn-secondary btn-sm"><i class="fas fa-eye"></i></a>
                                                     <a onclick="konfirmasiKembali({{$data->id}})" href="#" class="btn btn-primary btn-sm"><i class="fas fa-check"></i></a>
@@ -96,53 +123,106 @@
                                             <th>Judul Buku</th>
                                             <th>Peminjam</th>
                                             <th>Tanggal Pinjam</th>
-                                            <th>Status</th>
+                                            {{-- <th>Status</th> --}}
                                             <th>Tindakan</th>
                                         </tr>
                                     </tfoot>
                                 </table>
-                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content">
-                                            <form id="form" action="" method="POST">
-                                                @csrf
-                                                @method('PUT')
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title align-content-lg-center" id="exampleModalLabel">Konfirmasi Pengembalian Buku</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="form-group">
-                                                        <label>Kondisi Buku Setelah diPinjam <span class="text-danger">*</span></label>
-                                                        <select name="kondisi" class="form-control select2bs4  @error('kondisi') is-invalid @enderror" style="width: 100%;" aria-placeholder="Pilihlah Program Studi">
-                                                            <option disabled selected>Pilihlah Kondisi Buku</option>
-                                                            <option value="Baik">Baik</option>
-                                                            <option value="Sedang">Sedang</option>
-                                                            <option value="Rusak">Rusak</option>
-                                                        </select>
-                                                        @error('kondisi')
-                                                            <div class="invalid-feedback text-start">
-                                                                {{$errors->first('kondisi') }}
-                                                            </div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
-
                     </div>
                     {{-- End Data Table Sulinggih --}}
 
+                    {{-- Start Data Table Pemangku --}}
+                    <div class="tab-pane fade" id="kembali-table" role="tabpanel" aria-labelledby="kembali-tabs">
+                        <div class="card-body p-0">
+                            <div class="table-responsive mailbox-messages p-2">
+                                <table id="tb-kembali" class="table table-bordered table-hover ">
+                                    <thead >
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Kode Buku</th>
+                                            <th>Judul Buku</th>
+                                            <th>Peminjam</th>
+                                            <th>Tanggal Pinjam</th>
+                                            {{-- <th>Status</th> --}}
+                                            <th>Tindakan</th>
+                                            {{-- <input id="kondisiBuku" name='kondisi'> --}}
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($dataTransaksiDetail->where('status','Sudah kembali') as $data )
+                                            <tr>
+                                                <td>{{$loop->iteration}}</td>
+                                                <td>{{$data->bukus->kode}}</td>
+                                                <td>{{$data->bukus->judul}}</td>
+                                                <td>{{$data->trxpeminjaman->peminjams->nama}}</td>
+                                                <td>{{date('d-m-Y',strtotime($data->trxpeminjaman->tanggal))}}</td>
+                                                {{-- <td>{{$data->status}}</td> --}}
+                                                <td>
+                                                    <a href="#" class="btn btn-secondary btn-sm"><i class="fas fa-eye"></i></a>
+                                                    {{-- <a onclick="konfirmasiKembali({{$data->id}})" href="#" class="btn btn-primary btn-sm"><i class="fas fa-check"></i></a>
+                                                    <a onclick="deleteTransaksi({{$data->id}})" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a> --}}
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                    <tfoot >
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Kode Buku</th>
+                                            <th>Judul Buku</th>
+                                            <th>Peminjam</th>
+                                            <th>Tanggal Pinjam</th>
+                                            {{-- <th>Status</th> --}}
+                                            <th>Tindakan</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- END Data Table Pemangku --}}
+
+                </div>
+            </div>
+
+
+        </div>
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <form id="form" action="" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="modal-header">
+                            <h5 class="modal-title align-content-lg-center" id="exampleModalLabel">Konfirmasi Pengembalian Buku</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>Kondisi Buku Setelah diPinjam <span class="text-danger">*</span></label>
+                                <select name="kondisi" class="form-control select2bs4  @error('kondisi') is-invalid @enderror" style="width: 100%;" aria-placeholder="Pilihlah Program Studi">
+                                    <option disabled selected>Pilihlah Kondisi Buku</option>
+                                    <option value="Baik">Baik</option>
+                                    <option value="Sedang">Sedang</option>
+                                    <option value="Rusak">Rusak</option>
+                                </select>
+                                @error('kondisi')
+                                    <div class="invalid-feedback text-start">
+                                        {{$errors->first('kondisi') }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -194,7 +274,26 @@
 
 
         $(function () {
-            $("#peminjam").DataTable({
+            $("#tb-kembali").DataTable({
+                "responsive": false, "lengthChange": false, "autoWidth": false,
+                "oLanguage": {
+                    "sSearch": "Cari:",
+                    "sZeroRecords": "Data Tidak Ditemukan",
+                    "emptyTable": "Tidak Terdapat Data Peminjaman",
+                    "sSearchPlaceholder": "Cari data....",
+                    "infoEmpty": "Menampilkan 0 Data",
+                    "infoFiltered": "(dari _MAX_ data)",
+                },
+                "language": {
+                    "paginate": {
+                        "previous": 'Sebelumnya',
+                        "next": 'Berikutnya'
+                    },
+                    "info": "Menampilkan halaman _PAGE_ dari _PAGES_",
+                }
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+            $("#tb-dipinjam").DataTable({
                 "responsive": false, "lengthChange": false, "autoWidth": false,
                 "oLanguage": {
                     "sSearch": "Cari:",
