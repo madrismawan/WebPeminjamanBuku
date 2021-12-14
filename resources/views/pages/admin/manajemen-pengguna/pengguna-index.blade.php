@@ -126,13 +126,13 @@
                 denyButtonText: `Batal`,
                 confirmButtonColor: '#3085d6',
                 denyButtonColor: '#d33',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $('#delete-'+index).submit();
-                    } else if (result.isDenied) {
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#delete-'+index).submit();
+                } else if (result.isDenied) {
 
-                    }
-                })
+                }
+            })
         }
 
 

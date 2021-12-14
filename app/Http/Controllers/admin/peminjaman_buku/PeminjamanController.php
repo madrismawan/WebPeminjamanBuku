@@ -137,56 +137,58 @@ class PeminjamanController extends Controller
         // END RETURN
     }
 
+    public function delete(Request $request){
+         // SECURITY
+            $validator = Validator::make(['id' =>$request->id],[
+                'id' => 'required|exists:trx_pinjaman_details,id',
+            ]);
 
-
-    public function get (Request $request)
-    {
-        $data = TrxPinjamanDetails::with(['trxpeminjaman','bukus'])->get();
-        // $data3 = TrxPinjamanDetails::whereHas(['trxpeminjaman'=>function($query){
-        //     $query->where('peminjam_id', '=', '1');
-        // }])->get();
-        // $data4 = TrxPinjamanDetails::whereHas('bukus', function($q){
-        //     $q->where('trx_id','=>','1');
-        // })->get();
-
-        // foreach ($data->bukus as $data){
-        //     echo $data;
-        // }
-        // dd($data->peminjam_id);
-        // foreach ($data as $x){
-        //     // echo $x->bukus->kode;
-        //     foreach ($x->bukus as $data){
-        //         echo $data->judul;
-        //     }
-
-        // }
-            // foreach($data as $x){
-            //     foreach( $x->bukus as $data ){
-            //         // dd($data->trx_pinjaman_detail->status);
-            //     }
-            //     echo ($data->kode);
-            //     echo ($data->judul);
-            //     echo ($x->peminjams->nama);
-            //     echo ($x->tanggal);
-            //     echo ($data->trx_pinjaman_detail->status);
-            //     // dd ($data->trx_pinjaman_detail);
-
-            //     // echo ($y->status);
-            //     // echo ($y->id);
-
-            // }
-            foreach ($data as $data ){
-                dd($data->id);
-                // dd($data->trxpeminjaman->peminjams);
+            if($validator->fails()){
+                return redirect()->back()->with([
+                    'status' => 'fail',
+                    'icon' => 'error',
+                    'title' => 'Hapus Data Gagal',
+                    'message' => 'Hapus data gagal, mohon hubungi developer untuk lebih lanjut!!',
+                ]);
             }
+        // END SECURITY
 
-            // dd($data);
-            // dd($data->peminjams);
-        // dd($data->bukus as $data);
+        // MAIN LOGIC
+            try{
+                DB::beginTransaction();
+                $dataTrxDetail = TrxPinjamanDetails::findOrFail($request->id);
+                $jumlahTrxPinjaman = TrxPinjamanDetails::where('trx_id',$dataTrxDetail->trx_id)->count();
+                if($jumlahTrxPinjaman<= 1){
+                    Buku::findOrFail($dataTrxDetail->buku_id)->update([
+                        'status'=>'Bebas'
+                    ]);
+                    Peminjams::findOrFail($dataTrxDetail->trx_id)->delete();
+                }else{
+                    Buku::findOrFail($dataTrxDetail->buku_id)->update([
+                        'status'=>'Bebas'
+                    ]);
+                    TrxPinjamanDetails::findOrFail($request->id)->delete();
+                }
+                DB::commit();
+            }catch(ModelNotFoundException | PDOException | QueryException | \Throwable | \Exception $err){
+                DB::rollBack();
+                return redirect()->back()->with([
+                    'status' => 'success',
+                    'icon' => 'success',
+                    'tittle' => 'Hapus Data Gagal!',
+                    'message' => 'Hapus data gagal, mohon hubungi developer untuk lebih lanjut!!'
+                ]);
+            }
+        // END LOGIC
+
+        // RETURN
+            return redirect()->back()->with([
+                'status' => 'success',
+                'icon' => 'success',
+                'title' => 'Berhasil Menghapus Transaksi',
+                'message' => 'Data transaksi peminjaman berhasil terhapus dari sistem'
+            ]);
+        // // END RETURN
     }
-
-
-
-
 
 }

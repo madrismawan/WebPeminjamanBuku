@@ -215,7 +215,6 @@ class ManajemenBukuController extends Controller
                 'message' => 'Gagal Membuat Data Buku, apabila diperlukan mohon hubungi developer sistem`',
             ]);
         }
-
         // END LOGIC
 
         // RETURN
@@ -346,7 +345,6 @@ class ManajemenBukuController extends Controller
                 'message' => 'Data buku berhasil terhapus dari sistem'
             ]);
         // END RETURN
-
     }
 
 

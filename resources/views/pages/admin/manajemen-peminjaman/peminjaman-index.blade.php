@@ -81,6 +81,11 @@
                                                     <a onclick="konfirmasiKembali({{$data->id}})" href="#" class="btn btn-primary btn-sm"><i class="fas fa-check"></i></a>
                                                     <a onclick="deleteTransaksi({{$data->id}})" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
                                                 </td>
+                                                <form id="{{"delete-".$data->id}}" class="d-none" action="{{route('admin.trx-peminjaman.delete')}}" method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <input type="hidden" class="d-none" name="id" value="{{$data->id}}">
+                                                </form>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -165,6 +170,27 @@
             document.getElementById("form").action = "trx-peminjaman/buku-kembali/"+index;
             $('#exampleModal').modal('show');
         }
+
+        function deleteTransaksi(index){
+            Swal.fire({
+                title: 'Peringatan',
+                text : 'Apakah anda yakin akan menghapus transaksi peminjaman?',
+                icon:'warning',
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: `Hapus`,
+                denyButtonText: `Batal`,
+                confirmButtonColor: '#3085d6',
+                denyButtonColor: '#d33',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#delete-'+index).submit();
+                } else if (result.isDenied) {
+
+                }
+            })
+        }
+
 
 
         $(function () {
