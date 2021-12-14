@@ -79,7 +79,7 @@
                                                 <td>
                                                     <a href="#" class="btn btn-secondary btn-sm"><i class="fas fa-eye"></i></a>
                                                     <a onclick="konfirmasiKembali({{$data->id}})" href="#" class="btn btn-primary btn-sm"><i class="fas fa-check"></i></a>
-                                                    <a class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                                                    <a onclick="deleteTransaksi({{$data->id}})" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -97,30 +97,36 @@
                                     </tfoot>
                                 </table>
                                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
                                             <form id="form" action="" method="POST">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                                                    <h5 class="modal-title align-content-lg-center" id="exampleModalLabel">Konfirmasi Pengembalian Buku</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
                                                     <div class="form-group">
-                                                        <label for="recipient-name" class="col-form-label">Recipient:</label>
-                                                        <input type="text" class="form-control" id="recipient-name">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="message-text" class="col-form-label">Message:</label>
-                                                        <textarea class="form-control" id="message-text"></textarea>
+                                                        <label>Kondisi Buku Setelah diPinjam <span class="text-danger">*</span></label>
+                                                        <select name="kondisi" class="form-control select2bs4  @error('kondisi') is-invalid @enderror" style="width: 100%;" aria-placeholder="Pilihlah Program Studi">
+                                                            <option disabled selected>Pilihlah Kondisi Buku</option>
+                                                            <option value="Baik">Baik</option>
+                                                            <option value="Sedang">Sedang</option>
+                                                            <option value="Rusak">Rusak</option>
+                                                        </select>
+                                                        @error('kondisi')
+                                                            <div class="invalid-feedback text-start">
+                                                                {{$errors->first('kondisi') }}
+                                                            </div>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary">Send message</button>
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                    <button type="submit" class="btn btn-primary">Submit</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -154,55 +160,6 @@
     <script src="{{asset('base-template/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
 
     <script type="text/javascript">
-        // function peringatanPendaftaran(index){
-        //     Swal.fire({
-        //         title: 'Pengembalian Buku',
-        //         text: 'Cek Kondisi Pengembalian Buku?',
-        //         // html : '@csrf',
-        //         // <form id="{{"kembali-".$data->id}}" class="d-none" method="POST" action="{{route('admin.trx-peminjaman.buku-kembali')}}">
-        //         //     @method('PUT')
-        //         //     @csrf
-        //         //     <input  name="asdsd" value="risaman">
-        //         //     <button id="{{"btn-".$data->id}}" type="submit"></button>
-
-        //         //     {{-- <div id="{{"kondisiBuku".$data->id}}">
-        //         //         <input value="risaman">
-        //         //     </div> --}}
-        //         // </form>
-        //         icon: 'question',
-        //         input: 'select',
-        //         inputOptions: {
-        //             Baik : 'Baik',
-        //             Sedang : 'Sedang',
-        //             Rusak : 'Rusak'
-        //         },
-        //         inputPlaceholder: 'Kondisi Pengembalian Buku',
-        //         confirmButtonColor: '#3085d6',
-        //         confirmButtonText: `Submit`,
-        //         denyButtonText: `Batal`,
-        //         denyButtonColor: '#d33',
-        //         showCancelButton: true,
-        //         inputValidator: (value) => {
-        //             let _token = $("input[name=_token]").val();
-        //             // alert(_token);
-        //             $.ajax({
-        //                 url: "/admin/trx-peminjaman/buku-kembali"+index,
-        //                 type : "PUT",
-        //                 data : {
-        //                     _token : _token,
-        //                     kondisi : value,
-        //                 },
-        //                 success:function(response){
-        //                     alert(response);
-        //                 }
-        //             });
-        //             // document.getElementById('kondisiBuku'+index).setAttribute("value", value);
-        //             // $('#kondisiBuku'+index).html('<input name="kondisi" value="kadek"></input>');
-        //             // $('#kembali-'+index).submit();
-        //         }
-        //     })
-        // }
-
 
         function konfirmasiKembali(index){
             document.getElementById("form").action = "trx-peminjaman/buku-kembali/"+index;

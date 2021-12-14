@@ -26,7 +26,7 @@ class PeminjamanController extends Controller
     public function create(Request $request)
     {
         $dataPeminjam = Peminjams::all();
-        $dataBuku = Buku::where('status','Bebas')->get();
+        $dataBuku = Buku::where('status','Bebas')->whereNotIn('kondisi',['Rusak'])->get();
 
         return view('pages.admin.manajemen-peminjaman.peminjaman-tambah',compact(['dataPeminjam','dataBuku']));
     }
@@ -34,7 +34,6 @@ class PeminjamanController extends Controller
 
     public function store(Request $request)
     {
-
         //SECURITY
             $validator = Validator::make($request->all(),[
                 'peminjam' => 'required',
@@ -91,11 +90,58 @@ class PeminjamanController extends Controller
     }
 
 
+    public function bukuKembali (Request $request){
+
+        //SECURITY
+            $validator = Validator::make($request->all(),[
+                'kondisi' => 'required|in:Baik,Sedang,Rusak',
+            ]);
+
+            if($validator->fails()){
+                return redirect()->back()->withErrors($validator->errors())->with([
+                    'status' => 'fail',
+                    'icon' => 'error',
+                    'title' => 'Gagal Mengembalikan Buku',
+                    'message' => 'Gagal Mengembalikan Buku, Cek kembali form input yang anda!'
+                ])->withInput($request->all());
+            }
+        //END SECURITY
+
+         // MAIN LOGIC
+            try{
+                $trxpinjaman = TrxPinjamanDetails::findOrFail($request->id);
+                $trxpinjaman->update([
+                    'status' => 'Sudah kembali'
+                ]);
+                Buku::findOrFail($trxpinjaman->buku_id)->update([
+                    'kondisi'=> $request->kondisi,
+                    'status' => 'Bebas'
+                ]);
+            }catch(ModelNotFoundException | PDOException | QueryException | \Throwable | \Exception $err){
+                return redirect()->back()->with([
+                    'status' => 'fail',
+                    'icon' => 'error',
+                    'title' => 'Gagal Mengembalikan Buku',
+                    'message' => 'Gagal Mengembalikan Buku, mohon hubungi developer sistem`',
+                ]);
+            }
+        // END LOGIC
+
+        // RETURN
+            return redirect()->back()->with([
+                'status' => 'success',
+                'icon' => 'success',
+                'title' => 'Berhasil mengemblikan buku',
+                'message' => 'Pengembalian Buku berhasil dilakukan',
+            ]);
+        // END RETURN
+    }
+
+
+
     public function get (Request $request)
     {
         $data = TrxPinjamanDetails::with(['trxpeminjaman','bukus'])->get();
-
-
         // $data3 = TrxPinjamanDetails::whereHas(['trxpeminjaman'=>function($query){
         //     $query->where('peminjam_id', '=', '1');
         // }])->get();
@@ -140,9 +186,7 @@ class PeminjamanController extends Controller
     }
 
 
-    public function bukuKembali (Request $request){
-        echo "risaman";
-    }
+
 
 
 }
