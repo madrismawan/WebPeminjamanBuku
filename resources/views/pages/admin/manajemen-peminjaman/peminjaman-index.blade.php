@@ -62,6 +62,8 @@
                                             <th>Tanggal Pinjam</th>
                                             <th>Status</th>
                                             <th>Tindakan</th>
+                                            {{-- <input id="kondisiBuku" name='kondisi'> --}}
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -76,7 +78,7 @@
                                                 <td>{{$data->status}}</td>
                                                 <td>
                                                     <a href="#" class="btn btn-secondary btn-sm"><i class="fas fa-eye"></i></a>
-                                                    <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-check"></i></a>
+                                                    <a onclick="konfirmasiKembali({{$data->id}})" href="#" class="btn btn-primary btn-sm"><i class="fas fa-check"></i></a>
                                                     <a class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
                                                 </td>
                                             </tr>
@@ -94,12 +96,41 @@
                                         </tr>
                                     </tfoot>
                                 </table>
+                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <form id="form" action="" method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <label for="recipient-name" class="col-form-label">Recipient:</label>
+                                                        <input type="text" class="form-control" id="recipient-name">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="message-text" class="col-form-label">Message:</label>
+                                                        <textarea class="form-control" id="message-text"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Send message</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
                     </div>
                     {{-- End Data Table Sulinggih --}}
-
 
                 </div>
             </div>
@@ -123,6 +154,61 @@
     <script src="{{asset('base-template/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
 
     <script type="text/javascript">
+        // function peringatanPendaftaran(index){
+        //     Swal.fire({
+        //         title: 'Pengembalian Buku',
+        //         text: 'Cek Kondisi Pengembalian Buku?',
+        //         // html : '@csrf',
+        //         // <form id="{{"kembali-".$data->id}}" class="d-none" method="POST" action="{{route('admin.trx-peminjaman.buku-kembali')}}">
+        //         //     @method('PUT')
+        //         //     @csrf
+        //         //     <input  name="asdsd" value="risaman">
+        //         //     <button id="{{"btn-".$data->id}}" type="submit"></button>
+
+        //         //     {{-- <div id="{{"kondisiBuku".$data->id}}">
+        //         //         <input value="risaman">
+        //         //     </div> --}}
+        //         // </form>
+        //         icon: 'question',
+        //         input: 'select',
+        //         inputOptions: {
+        //             Baik : 'Baik',
+        //             Sedang : 'Sedang',
+        //             Rusak : 'Rusak'
+        //         },
+        //         inputPlaceholder: 'Kondisi Pengembalian Buku',
+        //         confirmButtonColor: '#3085d6',
+        //         confirmButtonText: `Submit`,
+        //         denyButtonText: `Batal`,
+        //         denyButtonColor: '#d33',
+        //         showCancelButton: true,
+        //         inputValidator: (value) => {
+        //             let _token = $("input[name=_token]").val();
+        //             // alert(_token);
+        //             $.ajax({
+        //                 url: "/admin/trx-peminjaman/buku-kembali"+index,
+        //                 type : "PUT",
+        //                 data : {
+        //                     _token : _token,
+        //                     kondisi : value,
+        //                 },
+        //                 success:function(response){
+        //                     alert(response);
+        //                 }
+        //             });
+        //             // document.getElementById('kondisiBuku'+index).setAttribute("value", value);
+        //             // $('#kondisiBuku'+index).html('<input name="kondisi" value="kadek"></input>');
+        //             // $('#kembali-'+index).submit();
+        //         }
+        //     })
+        // }
+
+
+        function konfirmasiKembali(index){
+            document.getElementById("form").action = "trx-peminjaman/buku-kembali/"+index;
+            $('#exampleModal').modal('show');
+        }
+
 
         $(function () {
             $("#peminjam").DataTable({
@@ -130,7 +216,7 @@
                 "oLanguage": {
                     "sSearch": "Cari:",
                     "sZeroRecords": "Data Tidak Ditemukan",
-                    "emptyTable": "Tidak Terdapat Data Akun Sulinggih",
+                    "emptyTable": "Tidak Terdapat Data Transaksi Peminjaman",
                     "sSearchPlaceholder": "Cari data....",
                     "infoEmpty": "Menampilkan 0 Data",
                     "infoFiltered": "(dari _MAX_ data)",

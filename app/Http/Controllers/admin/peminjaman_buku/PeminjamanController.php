@@ -140,4 +140,9 @@ class PeminjamanController extends Controller
     }
 
 
+    public function bukuKembali (Request $request){
+        echo "risaman";
+    }
+
+
 }

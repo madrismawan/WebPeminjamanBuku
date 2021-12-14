@@ -46,7 +46,11 @@ class AdminAuthController extends Controller
         // MAIN LOGIC
             try{
                 if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
-                    return redirect()->route('admin.dashboard');
+                    return redirect()->route('admin.dashboard')->with([
+                        'login' => 'success',
+                        'iconLog' => 'success',
+                        'titleLog' => 'Anda berhasil Login ke sistem',
+                    ]);
                 }else{
                     return redirect()->back()->with([
                         'status' => 'fail',

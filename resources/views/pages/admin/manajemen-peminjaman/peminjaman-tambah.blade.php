@@ -64,7 +64,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Tanggal Transaksi Peminjaman Buku <span class="text-danger">*</span></label>
-                                            <input name="tanggal" value="{{date('d-m-Y')}}" type="text" class="form-control" id="exampleInputEmail1" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask disabled>
+                                            <input name="tanggal" value="{{date('d-m-Y')}}" type="text" class="form-control" id="exampleInputEmail1"  disabled>
                                         </div>
                                     </div>
                                     <div class="col-6">
