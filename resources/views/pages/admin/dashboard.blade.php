@@ -11,14 +11,13 @@
             <!-- small box -->
             <div class="small-box bg-info">
                 <div class="inner">
-                <h3>150</h3>
-
+                <h3>{{$jumlahBuku}}</h3>
                 <p>Jumlah Buku</p>
                 </div>
                 <div class="icon">
                     <i class="fas fa-book"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{route('admin.manajemen-buku.data')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
             </div>
             <!-- ./col -->
@@ -26,14 +25,14 @@
             <!-- small box -->
             <div class="small-box bg-success">
                 <div class="inner">
-                <h3>3</h3>
+                <h3>{{$jumlahPengguna}}</h3>
 
                 <p>Jumlah Anggota</p>
                 </div>
                 <div class="icon">
                     <i class="fas fa-users"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{route('admin.manajemen-pengguna.index')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
             </div>
             <!-- ./col -->
@@ -41,14 +40,14 @@
             <!-- small box -->
             <div class="small-box bg-warning">
                 <div class="inner">
-                <h3>4</h3>
+                <h3>{{$jumlahBukuTerpinjam}}</h3>
 
                 <p>Buku Terpinjam</p>
                 </div>
                 <div class="icon">
                     <i class="fas fa-chart-line"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{route('admin.manajemen-buku.data')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
             </div>
             <!-- ./col -->
@@ -56,7 +55,7 @@
             <!-- small box -->
             <div class="small-box bg-secondary">
                 <div class="inner">
-                <h3>4</h3>
+                <h3>{{$jumlahBukuTersedia}}</h3>
 
                 <p>Buku Tersedia</p>
                 </div>

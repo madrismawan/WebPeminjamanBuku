@@ -162,7 +162,7 @@ class PeminjamanController extends Controller
                     Buku::findOrFail($dataTrxDetail->buku_id)->update([
                         'status'=>'Bebas'
                     ]);
-                    Peminjams::findOrFail($dataTrxDetail->trx_id)->delete();
+                    TrxPinjamans::findOrFail($dataTrxDetail->trx_id)->delete();
                 }else{
                     Buku::findOrFail($dataTrxDetail->buku_id)->update([
                         'status'=>'Bebas'
@@ -190,5 +190,6 @@ class PeminjamanController extends Controller
             ]);
         // // END RETURN
     }
+
 
 }
