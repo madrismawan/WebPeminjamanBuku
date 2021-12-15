@@ -150,41 +150,47 @@
 
 @push('js')
 
-    <!-- fullCalendar 2.2.5 -->
-    <script src="{{asset('base-template/plugins/moment/moment.min.js')}}"></script>
-    <script src="{{asset('base-template/plugins/fullcalendar/main.js')}}"></script>
-
     <!-- ChartJS -->
     <script src="{{asset('base-template/plugins/chart.js/Chart.min.js')}}"></script>
 
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#side-dashboard').addClass('menu-open');
+        });
+    </script>
+
+
     <script>
-        var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
-        var donutData        = {
-        labels: [
-            'Balai Pustaka ',
-            'Tiga Serangkai',
-        ],
-        datasets: [
-            {
-            data: [
-                {{count($jumlahBuku->where('penerbit','Balai Pustaka'))}},
-                {{count($jumlahBuku->where('penerbit','Tiga Serangkai'))}}
+        $(function () {
+            var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
+            var donutData        = {
+            labels: [
+                'Balai Pustaka ',
+                'Tiga Serangkai',
             ],
-            backgroundColor : ['#f56954', '#00c0ef', '#f39c12', '#3c8dbc', '#d2d6de'],
+            datasets: [
+                {
+                data: [
+                    {{count($jumlahBuku->where('penerbit','Balai Pustaka'))}},
+                    {{count($jumlahBuku->where('penerbit','Tiga Serangkai'))}}
+                ],
+                backgroundColor : ['#f56954', '#00c0ef', '#f39c12', '#3c8dbc', '#d2d6de'],
+                }
+            ]
             }
-        ]
-        }
-        var donutOptions     = {
-        maintainAspectRatio : false,
-        responsive : true,
-        }
-        //Create pie or douhnut chart
-        // You can switch between pie and douhnut using the method below.
-        new Chart(donutChartCanvas, {
-        type: 'doughnut',
-        data: donutData,
-        options: donutOptions
+            var donutOptions     = {
+            maintainAspectRatio : false,
+            responsive : true,
+            }
+            //Create pie or douhnut chart
+            // You can switch between pie and douhnut using the method below.
+            new Chart(donutChartCanvas, {
+            type: 'doughnut',
+            data: donutData,
+            options: donutOptions
+            })
         })
+
     </script>
 
     <script>

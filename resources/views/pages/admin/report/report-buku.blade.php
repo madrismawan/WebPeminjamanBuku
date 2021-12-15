@@ -7,11 +7,30 @@
 @endpush
 
 @section('content')
+    <section class="content-header">
+        <div class="container-fluid border-bottom">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Report Buku Peminjaman</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Home</a></li>
+                    <li class="breadcrumb-item active">Data Peminjaman Buku TI</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+    </section>
 
-     <!-- DONUT CHART -->
-     <div class="card card-danger">
+    <!-- Bar chart -->
+    <div class="card card-primary card-outline">
         <div class="card-header">
-          <h3 class="card-title">Donut Chart</h3>
+          <h3 class="card-title">
+            <i class="far fa-chart-bar"></i>
+            Total List Buku Terpinjam
+          </h3>
 
           <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -23,49 +42,68 @@
           </div>
         </div>
         <div class="card-body">
-          <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+          <div id="bar-chart" style="height: 300px;"></div>
         </div>
-        <!-- /.card-body -->
-      </div>
-      <!-- /.card -->
+        <!-- /.card-body-->
+    </div>
+    <!-- /.card -->
 
 @endsection
 
 @push('js')
+    <!-- jQuery -->
+    <script src="{{asset('base-template/plugins/jquery/jquery.min.js')}}"></script>
+    <!-- FLOT CHARTS -->
+    <script src="{{asset('base-template/plugins/flot/jquery.flot.js')}}"></script>
+    <!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
+    <script src="{{asset('base-template/plugins/flot/plugins/jquery.flot.resize.js')}}"></script>
+    <!-- FLOT PIE PLUGIN - also used to draw donut charts -->
+    <script src="{{asset('base-template/plugins/flot/plugins/jquery.flot.pie.js')}}"></script>
+
     <!-- ChartJS -->
     <script src="{{asset('base-template/plugins/chart.js/Chart.min.js')}}"></script>
 
     <script>
-        var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
-        var donutData        = {
-        labels: [
-            'Balai Pustaka ',
-            'Tiga Serangkai',
-        ],
-        datasets: [
-            {
-            data: [
-                @foreach ( as )
 
+        var bar_data = {
+            data : [
+                @foreach ($buku as $data)
+                    [{{$loop->iteration}}, {{count($detailTransaksi->where('buku_id',$data->id))}}],
                 @endforeach
-            ],
-            backgroundColor : ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+                ],
+            bars: { show: true }
             }
-        ]
-        }
-        var donutOptions     = {
-        maintainAspectRatio : false,
-        responsive : true,
-        }
-        //Create pie or douhnut chart
-        // You can switch between pie and douhnut using the method below.
-        new Chart(donutChartCanvas, {
-        type: 'doughnut',
-        data: donutData,
-        options: donutOptions
+            $.plot('#bar-chart', [bar_data], {
+            grid  : {
+                borderWidth: 1,
+                borderColor: '#f3f3f3',
+                tickColor  : '#f3f3f3'
+            },
+            series: {
+                bars: {
+                show: true, barWidth: 0.5, align: 'center',
+                },
+            },
+            colors: ['#3c8dbc'],
+            xaxis : {
+                ticks: [
+                    @foreach ($buku as $data )
+                        [{{$loop->iteration}},'{{$data->judul}}'],
+                    @endforeach
+                    // [2,'February'], [3,'March'], [4,'April']
+                ]
+            }
         })
+        /* END BAR CHART */
+
+
     </script>
 
 
-
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#side-laporan').addClass('menu-open');
+            $('#side-laporan-buku').addClass('active');
+        });
+    </script>
 @endpush
