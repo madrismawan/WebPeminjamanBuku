@@ -181,7 +181,7 @@
                                 <div class="form-group col-12">
                                     <div class="row">
                                         <div class="col-6">
-                                            <a href="http://127.0.0.1:8000/admin/manajemen-pengguna" type="submit" class="btn btn-secondary btn-sm">Kembali</a>
+                                            <a href="{{route('admin.manajemen-buku.detail',$dataBuku->id)}}" type="submit" class="btn btn-secondary btn-sm">Kembali</a>
                                         </div>
                                         <div class="col-6">
                                             <button type="submit" class="btn btn-primary btn-sm float-right">Simpan Perubahan</button>

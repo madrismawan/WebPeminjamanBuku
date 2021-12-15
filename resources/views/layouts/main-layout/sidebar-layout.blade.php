@@ -20,17 +20,17 @@
                     <a href="#" class="nav-link mb-2 p-2">
                         <img src="{{asset('base-template/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2 mr-2 mb-1" alt="User Image">
                         <p>
-                            Mukidi
+                            {{Auth::user()->nama}}
                             <i class="fas fa-angle-left right mt-2"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item ml-3">
+                        {{-- <li class="nav-item ml-3">
                             <a id="side-konfirmasi-sulinggih" href="#" class="nav-link ">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Profile</p>
                             </a>
-                        </li>
+                        </li> --}}
                         <li class="nav-item ml-3">
                             <a id="side-konfirmasi-sulinggih" href="{{route('auth.logout')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
@@ -62,6 +62,33 @@
 
                 <li class="nav-header font-weight-bold pl-2">MENU UTAMA</li>
 
+                <li id="side-peminjaman-buku" class="nav-item">
+                    <a href="#" class="nav-link p-2">
+                        <i class="fas fa-book-open nav-icon mr-1"></i>
+                        <p >
+                            Peminjaman Buku
+                            <i class="fas fa-angle-left right ml-lg-4"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item ml-3">
+                            <a id="side-peminjaman-buku-data" href="{{route('admin.trx-peminjaman.index')}}" class="nav-link p-2">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Data Peminjaman</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item ml-3">
+                            <a id="side-peminjaman-buku-tambah" href="{{route('admin.trx-peminjaman.create')}}" class="nav-link p-2">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Tambah Peminjaman</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
                 <li id="side-manajemen-buku" class="nav-item">
                     <a href="#" class="nav-link p-2 ">
                         <i class="fa fa-book nav-icon mr-1"></i>
@@ -89,31 +116,7 @@
 
                 </li>
 
-                <li id="side-peminjaman-buku" class="nav-item">
-                    <a href="#" class="nav-link p-2">
-                        <i class="fas fa-book-open nav-icon mr-1"></i>
-                        <p >
-                            Peminjaman Buku
-                            <i class="fas fa-angle-left right ml-lg-4"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item ml-3">
-                            <a id="side-peminjaman-buku-data" href="{{route('admin.trx-peminjaman.index')}}" class="nav-link p-2">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Data Peminjaman</p>
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item ml-3">
-                            <a id="side-peminjaman-buku-tambah" href="{{route('admin.trx-peminjaman.create')}}" class="nav-link p-2">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Tambah Peminjaman</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+
 
                 <li id="side-manajemen-pengguna" class="nav-item">
                     <a href="#" class="nav-link p-2 ">

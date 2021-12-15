@@ -63,7 +63,7 @@
                 @foreach ($dataBuku as $data )
                     <div class="col-12 col-sm-3" data-category="1" data-sort="white sample">
                         <div class="card p-2 shadow cursor" role="button">
-                            <img onclick="viewDetail()" src="{{route('get-image-sampul-buku',$data->id)}}" style="height:290px; object-fit:cover;" alt="white sample"/>
+                            <img  src="{{route('get-image-sampul-buku',$data->id)}}" style="height:290px; object-fit:cover;" alt="white sample"/>
                             <div class="text-center text-dark p-1 fs-4">
                                 <label class="m-0 text-dark">{{$data->kode}}</label>
                                 <p class="text-center text-dark m-0 font-weight-bold">{{$data->judul}}</p>

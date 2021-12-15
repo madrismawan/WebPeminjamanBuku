@@ -37,11 +37,15 @@ Route::group(['prefix'=>'admin', 'middleware'=>'auth.admin'], function(){
 
     Route::prefix('manajemen-buku')->group(function(){
         Route::get('', [ManajemenBukuController::class, 'index'])->name('admin.manajemen-buku.data');
+
         Route::get('create', [ManajemenBukuController::class, 'create'])->name('admin.manajemen-buku.create');
         Route::post('store', [ManajemenBukuController::class, 'store'])->name('admin.manajemen-buku.store');
+
         Route::get('detail/{id?}', [ManajemenBukuController::class, 'detail'])->name('admin.manajemen-buku.detail');
+
         Route::get('edit/{id?}', [ManajemenBukuController::class, 'edit'])->name('admin.manajemen-buku.edit');
         Route::put('update', [ManajemenBukuController::class, 'update'])->name('admin.manajemen-buku.update');
+
         Route::delete('delete/{id?}', [ManajemenBukuController::class, 'delete'])->name('admin.manajemen-buku.delete');
 
         Route::get('get-image-sampul/{id?}', [ManajemenBukuController::class, 'getSampulBuku'])->name('get-image-sampul-buku');
@@ -49,11 +53,15 @@ Route::group(['prefix'=>'admin', 'middleware'=>'auth.admin'], function(){
 
     Route::prefix('manajemen-pengguna')->group(function(){
         Route::get('', [ManajemenPenggunaController::class, 'index'])->name('admin.manajemen-pengguna.index');
+
         Route::get('create', [ManajemenPenggunaController::class, 'create'])->name('admin.manajemen-pengguna.create');
         Route::post('store', [ManajemenPenggunaController::class, 'store'])->name('admin.manajemen-pengguna.store');
+
         Route::get('detail/{id?}', [ManajemenPenggunaController::class, 'detail'])->name('admin.manajemen-pengguna.detail');
+
         Route::get('edit/{id?}', [ManajemenPenggunaController::class, 'edit'])->name('admin.manajemen-pengguna.edit');
         Route::put('update', [ManajemenPenggunaController::class, 'update'])->name('admin.manajemen-pengguna.update');
+
         Route::delete('delete/{id?}', [ManajemenPenggunaController::class, 'delete'])->name('admin.manajemen-pengguna.delete');
 
     });
@@ -62,6 +70,9 @@ Route::group(['prefix'=>'admin', 'middleware'=>'auth.admin'], function(){
         Route::get('', [PeminjamanController::class, 'index'])->name('admin.trx-peminjaman.index');
         Route::get('create', [PeminjamanController::class, 'create'])->name('admin.trx-peminjaman.create');
         Route::post('store', [PeminjamanController::class, 'store'])->name('admin.trx-peminjaman.store');
+
+        Route::get('detail/{id?}', [PeminjamanController::class, 'detail'])->name('admin.trx-peminjaman.detail');
+
         Route::put('buku-kembali/{id?}', [PeminjamanController::class, 'bukuKembali'])->name('admin.trx-peminjaman.buku-kembali');
         Route::delete('delete', [PeminjamanController::class, 'delete'])->name('admin.trx-peminjaman.delete');
 

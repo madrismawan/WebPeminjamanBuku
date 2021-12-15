@@ -104,7 +104,7 @@
                                                 <td>{{date('d-m-Y',strtotime($data->trxpeminjaman->tanggal))}}</td>
                                                 {{-- <td>{{$data->status}}</td> --}}
                                                 <td>
-                                                    <a href="#" class="btn btn-secondary btn-sm"><i class="fas fa-eye"></i></a>
+                                                    <a href="{{route('admin.trx-peminjaman.detail',$data->id)}}" class="btn btn-secondary btn-sm"><i class="fas fa-eye"></i></a>
                                                     <a onclick="konfirmasiKembali({{$data->id}})" href="#" class="btn btn-primary btn-sm"><i class="fas fa-check"></i></a>
                                                     <a onclick="deleteTransaksi({{$data->id}})" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
                                                 </td>
@@ -161,9 +161,7 @@
                                                 <td>{{date('d-m-Y',strtotime($data->trxpeminjaman->tanggal))}}</td>
                                                 {{-- <td>{{$data->status}}</td> --}}
                                                 <td>
-                                                    <a href="#" class="btn btn-secondary btn-sm"><i class="fas fa-eye"></i></a>
-                                                    {{-- <a onclick="konfirmasiKembali({{$data->id}})" href="#" class="btn btn-primary btn-sm"><i class="fas fa-check"></i></a>
-                                                    <a onclick="deleteTransaksi({{$data->id}})" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a> --}}
+                                                    <a href="{{route('admin.trx-peminjaman.detail',$data->id)}}" class="btn btn-secondary btn-sm"><i class="fas fa-eye"></i></a>
                                                 </td>
                                             </tr>
                                         @endforeach

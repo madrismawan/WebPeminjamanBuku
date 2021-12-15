@@ -10,8 +10,10 @@ class ImageHelper
 {
     public static function moveImage($file, $folder)
     {
+
         $image_name = strtolower(time().'_'.$file->getClientOriginalName());
         $image_name = Str::slug($image_name).'.'.strtolower($file->getClientOriginalExtension());
+
 
         $file->move(storage_path($folder), $image_name);
 
@@ -26,7 +28,7 @@ class ImageHelper
             );
         } else {
             return response()->file(
-                public_path('none')
+                public_path('app/default/none.jpg')
             );
         }
     }
