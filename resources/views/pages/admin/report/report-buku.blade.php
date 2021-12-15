@@ -7,46 +7,48 @@
 @endpush
 
 @section('content')
-    <section class="content-header">
-        <div class="container-fluid border-bottom">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>Report Buku Peminjaman</h1>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Home</a></li>
-                    <li class="breadcrumb-item active">Data Peminjaman Buku TI</li>
-                    </ol>
+    <div class=" container-fluid">
+        <section class="content-header">
+            <div class="container-fluid border-bottom">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Report Buku Peminjaman</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Home</a></li>
+                        <li class="breadcrumb-item active">Data Peminjaman Buku TI</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- /.container-fluid -->
-    </section>
+            <!-- /.container-fluid -->
+        </section>
 
-    <!-- Bar chart -->
-    <div class="card card-primary card-outline">
-        <div class="card-header">
-          <h3 class="card-title">
-            <i class="far fa-chart-bar"></i>
-            Total List Buku Terpinjam
-          </h3>
+        <!-- Bar chart -->
+        <div class="card card-primary card-outline">
+            <div class="card-header">
+              <h3 class="card-title">
+                <i class="far fa-chart-bar"></i>
+                Total List Buku Terpinjam
+              </h3>
 
-          <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-              <i class="fas fa-minus"></i>
-            </button>
-            <button type="button" class="btn btn-tool" data-card-widget="remove">
-              <i class="fas fa-times"></i>
-            </button>
-          </div>
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div id="bar-chart" style="height: 300px;"></div>
+            </div>
+            <!-- /.card-body-->
         </div>
-        <div class="card-body">
-          <div id="bar-chart" style="height: 300px;"></div>
-        </div>
-        <!-- /.card-body-->
+        <!-- /.card -->
     </div>
-    <!-- /.card -->
 
 @endsection
 
