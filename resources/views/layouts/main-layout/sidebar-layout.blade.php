@@ -160,6 +160,12 @@
                             <p>Lap. Buku</p>
                             </a>
                         </li>
+                        <li class="nav-item ml-3">
+                            <a id="side-laporan-buku" href="{{route('admin.report.buku')}}" class="nav-link p-2">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Lap. Pengguna</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
             </ul>

@@ -66,38 +66,40 @@
     <script src="{{asset('base-template/plugins/chart.js/Chart.min.js')}}"></script>
 
     <script>
-
-        var bar_data = {
-            data : [
-                @foreach ($buku as $data)
-                    [{{$loop->iteration}}, {{count($detailTransaksi->where('buku_id',$data->id))}}],
-                @endforeach
-                ],
-            bars: { show: true }
-            }
-            $.plot('#bar-chart', [bar_data], {
-            grid  : {
-                borderWidth: 1,
-                borderColor: '#f3f3f3',
-                tickColor  : '#f3f3f3'
-            },
-            series: {
-                bars: {
-                show: true, barWidth: 0.5, align: 'center',
-                },
-            },
-            colors: ['#3c8dbc'],
-            xaxis : {
-                ticks: [
-                    @foreach ($buku as $data )
-                        [{{$loop->iteration}},'{{$data->judul}}'],
+        // LOGIC REPORT
+            var bar_data = {
+                data : [
+                    // Ngambil data transaksi buku : buku:1 dipinjam sebanyak berapa kali di hitung dibawah pake count
+                    @foreach ($buku as $data)
+                        [{{$loop->iteration}}, {{count($detailTransaksi->where('buku_id',$data->id))}}],
                     @endforeach
-                    // [2,'February'], [3,'March'], [4,'April']
-                ]
-            }
-        })
-        /* END BAR CHART */
-
+                    ],
+                bars: { show: true }
+                }
+                // Nanti nampilin berdasarkan ID dibawah ni
+                $.plot('#bar-chart', [bar_data], {
+                grid  : {
+                    borderWidth: 1,
+                    borderColor: '#f3f3f3',
+                    tickColor  : '#f3f3f3'
+                },
+                series: {
+                    bars: {
+                    show: true, barWidth: 0.5, align: 'center',
+                    },
+                },
+                colors: ['#3c8dbc'],
+                xaxis : {
+                    ticks: [
+                        // Ini nampilin daftar bukunya berdasarkan judul anggeplah ini sumbu Xnya
+                        @foreach ($buku as $data )
+                            [{{$loop->iteration}},'{{$data->judul}}'],
+                        @endforeach
+                        // [2,'February'], [3,'March'], [4,'April']
+                    ]
+                }
+            })
+         // LOGIC REPORT
 
     </script>
 
