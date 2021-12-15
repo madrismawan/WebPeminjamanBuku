@@ -12,10 +12,13 @@ class AdminDashboardController extends Controller
 {
     public function dashboard(Request $request)
     {
-        $jumlahBuku = Buku::count();
+        $jumlahBuku = Buku::all();
         $jumlahPengguna = Peminjams::count();
         $jumlahBukuTerpinjam = TrxPinjamanDetails::where('status','Masih dipinjam')->count();
         $jumlahBukuTersedia = Buku::where('status','Bebas')->count();
-        return view('pages.admin.dashboard', compact(['jumlahBuku','jumlahPengguna','jumlahBukuTerpinjam','jumlahBukuTersedia']));
+        $dataPeminjam = TrxPinjamanDetails::where('status','Masih dipinjam')->with(['bukus','trxpeminjaman'])->get();
+
+
+        return view('pages.admin.dashboard', compact(['jumlahBuku','jumlahPengguna','jumlahBukuTerpinjam','jumlahBukuTersedia','dataPeminjam']));
     }
 }

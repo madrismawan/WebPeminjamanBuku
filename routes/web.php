@@ -6,6 +6,8 @@ use App\Http\Controllers\admin\dashboard\AdminDashboardController;
 use App\Http\Controllers\admin\manajemen_buku\ManajemenBukuController;
 use App\Http\Controllers\admin\manajemen_pengguna\ManajemenPenggunaController;
 use App\Http\Controllers\admin\peminjaman_buku\PeminjamanController;
+use App\Http\Controllers\admin\report\ReportController as ReportReportController;
+use App\Http\Controllers\app\admin\report\ReportController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -76,9 +78,13 @@ Route::group(['prefix'=>'admin', 'middleware'=>'auth.admin'], function(){
         Route::put('buku-kembali/{id?}', [PeminjamanController::class, 'bukuKembali'])->name('admin.trx-peminjaman.buku-kembali');
         Route::delete('delete', [PeminjamanController::class, 'delete'])->name('admin.trx-peminjaman.delete');
 
-        Route::get('getdata', [PeminjamanController::class, 'get'])->name('admin.trx-peminjaman.get');
+        // Route::get('getdata', [PeminjamanController::class, 'get'])->name('admin.trx-peminjaman.get');
+    });
 
 
+    Route::prefix('report')->group(function(){
+        Route::get('buku', [ReportReportController::class, 'reportBuku'])->name('admin.report.buku');
+        Route::get('pengguna', [ReportReportController::class, 'reportPengguna'])->name('admin.report.pengguna');
     });
 
 });
