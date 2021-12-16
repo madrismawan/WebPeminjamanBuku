@@ -45,7 +45,7 @@
                         <!-- SidebarSearch Form -->
                         <div class="form-inline m-0 mt-3">
                             <div class="input-group" data-widget="">
-                            <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+                            <input class="form-control form-control-sidebar" id="searchBuku" type="search" placeholder="Search" aria-label="Search">
                             <div class="input-group-append bg-white border">
                                 <button class="btn btn-sidebar">
                                 <i class="fas fa-search fa-fw"></i>
@@ -59,7 +59,7 @@
 
         </div>
         <div class="col-9">
-            <div class="row">
+            <div class="row" id="dynamic-buku">
                 @foreach ($dataBuku as $data )
                     <div class="col-12 col-sm-3" data-category="1" data-sort="white sample">
                         <div class="card p-2 shadow cursor" role="button">
@@ -84,7 +84,6 @@
                         </form>
                     </div>
                 @endforeach
-
             </div>
 
         </div>
@@ -99,7 +98,50 @@
 
 @push('js')
 
+
+
+
+
     <script type="text/javascript">
+
+        $('body').on('keyup','#searchBuku',function(){
+            var searchQuery = $(this).val();
+
+            $.ajax({
+                method: 'POST',
+                url: '{{route("search-buku")}}',
+                dataType: 'json',
+                data:{
+                    '_token':'{{csrf_token()}}',
+                    'search' : searchQuery
+                },
+                success: function(response){
+                    var bukuRow = '';
+                    $('#dynamic-buku').html('');
+                    $.each(response, function(index,value ){
+                        var urlSampul = '{{route("get-image-sampul-buku",":id")}}';
+                        urlSampul = urlSampul.replace(':id', value.id);
+
+                        var urlDetail = '{{route("admin.manajemen-buku.detail",":id")}}';
+                        urlDetail = urlDetail.replace(':id', value.id);
+
+                        var urlDelete = '{{route("admin.manajemen-buku.delete",":id")}}';
+                        urlDelete = urlDelete.replace(':id', value.id);
+
+                        var urlEdit= '{{route("admin.manajemen-buku.edit",":id")}}';
+                        urlEdit = urlEdit.replace(':id', value.id);
+
+                        bukuRow = '<div class="col-12 col-sm-3" data-category="1" data-sort="white sample"><div class="card p-2 shadow cursor" role="button"><img  src="'+urlSampul+'" style="height:290px; object-fit:cover;" alt="white sample"/> <div class="text-center text-dark p-1 fs-4"> <label class="m-0 text-dark">'+value.kode+'</label><p class="text-center text-dark m-0 font-weight-bold">'+value.judul+'</p> <div class="row justify-content-center text-dark">Oleh :<p class="text-center text-dark m-0"> '+value.penerbit+'</p></div><p class="text-center text-dark m-0">'+value.tahun_terbit+'</p></div><div class="btn-group btn-group-sm" style="object-fit: "> <a href="'+urlDetail+'" class="btn btn-secondary bg-white"><i class="fas fa-eye"></i></a><a href="'+urlEdit+'" class="btn btn-secondary bg-white"><i class="fas fa-edit"></i></a><a onclick="deleteData('+value.id+')" class="btn btn-secondary bg-white"><i class="fas fa-trash"></i></a></div></div><form id="delete-'+value.id+'"" class="d-none" action="'+urlDelete+'" method="post"> @csrf @method('delete')</form></div>'
+
+                        $('#dynamic-buku').append(bukuRow);
+                    });
+                    // console.log(response);
+                }
+            })
+            // console.log(searchQuery);
+        })
+
+
         function deleteData(index){
             Swal.fire({
                 title: 'Peringatan',

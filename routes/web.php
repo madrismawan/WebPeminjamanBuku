@@ -51,6 +51,8 @@ Route::group(['prefix'=>'admin', 'middleware'=>'auth.admin'], function(){
         Route::delete('delete/{id?}', [ManajemenBukuController::class, 'delete'])->name('admin.manajemen-buku.delete');
 
         Route::get('get-image-sampul/{id?}', [ManajemenBukuController::class, 'getSampulBuku'])->name('get-image-sampul-buku');
+        Route::post('search-buku', [ManajemenBukuController::class, 'searchBuku'])->name('search-buku');
+
     });
 
     Route::prefix('manajemen-pengguna')->group(function(){
@@ -84,7 +86,6 @@ Route::group(['prefix'=>'admin', 'middleware'=>'auth.admin'], function(){
 
     Route::prefix('report')->group(function(){
         Route::get('buku', [ReportReportController::class, 'reportBuku'])->name('admin.report.buku');
-        Route::get('pengguna', [ReportReportController::class, 'reportPengguna'])->name('admin.report.pengguna');
     });
 
 });

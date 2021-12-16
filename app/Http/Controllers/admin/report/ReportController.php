@@ -20,13 +20,6 @@ class ReportController extends Controller
 
     }
 
-    public function reportPengguna(Request $request)
-    {
-
-
-    }
-
-
 
 
 }

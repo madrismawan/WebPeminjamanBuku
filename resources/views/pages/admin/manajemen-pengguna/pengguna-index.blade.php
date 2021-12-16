@@ -128,7 +128,6 @@
                 denyButtonColor: '#d33',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    #delete-1
                     $('#delete-'+index).submit();
                 } else if (result.isDenied) {
 

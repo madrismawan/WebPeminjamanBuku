@@ -131,11 +131,12 @@
                                 <!-- /.item -->
                             </ul>
                         </div>
-                        <div class="card-footer text-center">
-                            <a href="{{route('admin.trx-peminjaman.index')}}" class="uppercase">Lihat Semua Peminjaman</a>
-                        </div>
-                         <!-- /.card-footer -->
                     @endforeach
+                    <div class="card-footer text-center">
+                        <a href="{{route('admin.trx-peminjaman.index')}}" class="uppercase">Lihat Semua Peminjaman</a>
+                    </div>
+                         <!-- /.card-footer -->
+
                     <!-- /.card-body -->
 
 

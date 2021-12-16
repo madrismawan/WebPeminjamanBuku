@@ -348,4 +348,11 @@ class ManajemenBukuController extends Controller
     }
 
 
+    public function searchBuku (Request $request)
+    {
+        $buku = Buku::where('judul','like','%'.$request->search.'%')->get();
+        return json_encode($buku);
+    }
+
+
 }
