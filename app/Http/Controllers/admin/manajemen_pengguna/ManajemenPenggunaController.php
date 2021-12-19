@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\admin\manajemen_pengguna;
 
 use App\Http\Controllers\Controller;
+use App\ImageHelper;
 use App\Models\Peminjams;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
+use Mockery\Expectation;
 use PDOException;
 
 class ManajemenPenggunaController extends Controller
@@ -35,7 +38,6 @@ class ManajemenPenggunaController extends Controller
     // Start Fungsi Add Data Pengguna
     public function store(Request $request)
     {
-
         //SECURITY
             $validator = Validator::make($request->all(),[
                 'nama' => 'required',
@@ -44,7 +46,8 @@ class ManajemenPenggunaController extends Controller
                 'program_studi' => 'required|in:Teknologi Informasi,Teknik Mesin,Teknik Sipil,Teknik Arsitektur,Teknik Elektro',
                 'nim' => 'required|numeric',
                 'email' => 'required',
-                'alamat' => 'required'
+                'alamat' => 'required',
+                'file' => 'required'
 
             ],
             [
@@ -65,6 +68,9 @@ class ManajemenPenggunaController extends Controller
         // MAIN LOGIC
         try{
             DB::beginTransaction();
+            // Move Image To Storage
+            $folder = 'app/pengguna/foto_ktp/';
+            $filename =  ImageHelper::moveImage($request->file,$folder);
             Peminjams::create([
                 'nama' => $request->nama,
                 'alamat' => $request->alamat,
@@ -72,7 +78,8 @@ class ManajemenPenggunaController extends Controller
                 'telepon' => $request->tlpn,
                 'tanggal_lahir' =>$request->tanggal_lahir,
                 'nim' => $request->nim,
-                'program_studi' => $request->program_studi
+                'program_studi' => $request->program_studi,
+                'foto_ktp'=> $filename
             ]);
             DB::commit();
         }catch(ModelNotFoundException | PDOException | QueryException | \Throwable | \Exception $err){
@@ -195,7 +202,32 @@ class ManajemenPenggunaController extends Controller
 
         // MAIN LOGIC
             try{
-                $peminjam = Peminjams::findOrFail($request->id)->update($request->all());
+                if($request->file != null){
+                    $dataPeminjam = Peminjams::findOrFail($request->id);
+                    File::delete(storage_path($dataPeminjam->foto_ktp));
+                    $folder = 'app/pengguna/foto_ktp/';
+                    $filename = ImageHelper::moveImage($request->file, $folder);
+                    Peminjams::findOrFail($request->id)->update([
+                        'nama' => $request->nama,
+                        'alamat' => $request->alamat,
+                        'email' => $request->email,
+                        'telepon' => $request->tlpn,
+                        'tanggal_lahir' =>$request->tanggal_lahir,
+                        'nim' => $request->nim,
+                        'program_studi' => $request->program_studi,
+                        'foto_ktp'=> $filename
+                    ]);
+                } else {
+                    Peminjams::findOrFail($request->id)->update([
+                        'nama' => $request->nama,
+                        'alamat' => $request->alamat,
+                        'email' => $request->email,
+                        'telepon' => $request->tlpn,
+                        'tanggal_lahir' =>$request->tanggal_lahir,
+                        'nim' => $request->nim,
+                        'program_studi' => $request->program_studi,
+                    ]);
+                }
             }catch(ModelNotFoundException $err){
                 return redirect()->back()->with([
                     'status' => 'fail',
@@ -236,7 +268,9 @@ class ManajemenPenggunaController extends Controller
 
         // MAIN LOGIC
             try{
-                Peminjams::findOrFail($request->id)->delete();
+                $dataPeminjam = Peminjams::findOrFail($request->id);
+                File::delete(storage_path($dataPeminjam->foto_ktp));
+                $dataPeminjam->delete();
             }catch(ModelNotFoundException $err){
                 return redirect()->back()->with([
                     'status' => 'success',
@@ -257,6 +291,43 @@ class ManajemenPenggunaController extends Controller
         // END RETURN
 
     }
+
+
+    // START GET DATA SAMPUL KTP
+    public function getImageKTP (Request $request)
+    {
+        // SECURITY
+        $validator = Validator::make(['id' =>$request->id],[
+            'id' => 'required|exists:bukus,id',
+        ]);
+
+        if($validator->fails()){
+            return redirect()->back()->with([
+                'status' => 'fail',
+                'icon' => 'error',
+                'title' => 'Gagal Mengambil Sampul Buku',
+                'message' => 'Gagal Mengambil Sampul Buku, Terdapat kendala pada sistem !!',
+            ]);
+        }
+        // END SECURITY
+
+        // MAIN LOGIC
+        try{
+            $path = Peminjams::findOrFail($request->id)->foto_ktp;
+            return ImageHelper::getImage($path);
+        }catch(Expectation | ModelNotFoundException $err){
+            return redirect()->back()->with([
+                'status' => 'fail',
+                'icon' => 'error',
+                'title' => 'Gagal Mengambil Sampul Buku',
+                'message' => 'Gagal Membuat Data Buku, apabila diperlukan mohon hubungi developer sistem`',
+            ]);
+        }
+
+        // END LOGIC
+
+    }
+    // END GET DATA SAMPUL KTP
 
 
 

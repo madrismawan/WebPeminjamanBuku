@@ -41,7 +41,13 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
+
                 <div class="card card-primary">
+                    <div class="card-header bg-white">
+                        <div class="card p-2 shadow cursor" role="button">
+                            <img  src="{{route('get-image-ktp',$dataPeminjam->id)}}" style="height:280px; object-fit:cover;" alt="white sample"/>
+                        </div>
+                    </div>
                     <div class="card-body">
                         <form action="{{route('admin.manajemen-pengguna.update')}}" method="POST"  enctype="multipart/form-data">
                             @csrf
@@ -141,8 +147,20 @@
                                             @enderror
                                         </div>
                                     </div>
-
-
+                                </div>
+                                <div class="form-group col-12">
+                                    <label>Foto KTP</label>
+                                    <div class="input-group mb-2">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input @error('file') is-invalid @enderror" name="file" id="customFile">
+                                            <label class="custom-file-label " for="customFile">{{ $dataPeminjam->foto_ktp }}</label>
+                                        </div>
+                                        @error('file')
+                                            <div class="invalid-feedback text-start">
+                                                {{ $errors->first('file') }}
+                                            </div>
+                                        @enderror
+                                    </div>
                                 </div>
                                 <div class="form-group col-12">
                                     <label>Alamat Lengkap <span class="text-danger">*</span></label>

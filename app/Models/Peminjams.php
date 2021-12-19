@@ -18,7 +18,8 @@ class Peminjams extends Model
         'tanggal_lahir',
         'nim',
         'program_studi',
-        'email'
+        'email',
+        'foto_ktp'
     ];
 
     public function trxpeminjams()

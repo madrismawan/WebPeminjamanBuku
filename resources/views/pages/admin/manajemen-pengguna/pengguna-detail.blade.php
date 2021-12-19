@@ -40,6 +40,12 @@
         <div class="row">
             <div class="col-12">
                 <div class="card card-primary">
+                    <div class="card-header bg-white">
+                        <label class="mb-0 text-center justify-content-center">Foto KTP Pengguna</label>
+                        <div class="card p-2 shadow cursor mx-lg-5 mt-4" role="button">
+                            <img  src="{{route('get-image-ktp',$dataPeminjam->id)}}" style="height:280px; object-fit:cover;" alt="white sample"/>
+                        </div>
+                    </div>
                     <div class="card-body">
                         <form action="#" method="POST" enctype="multipart/form-data">
                             @csrf

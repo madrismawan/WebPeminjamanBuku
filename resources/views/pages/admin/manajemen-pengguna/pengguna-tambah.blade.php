@@ -140,8 +140,20 @@
                                             @enderror
                                         </div>
                                     </div>
-
-
+                                </div>
+                                <div class="form-group col-12">
+                                    <label>Foto KTP</label>
+                                    <div class="input-group mb-2">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input @error('file') is-invalid @enderror" name="file" id="customFile" >
+                                            <label class="custom-file-label " for="customFile">Upload Foto KTP Pengguna</label>
+                                        </div>
+                                        @error('file')
+                                            <div class="invalid-feedback text-start">
+                                                {{ $errors->first('file') }}
+                                            </div>
+                                        @enderror
+                                    </div>
                                 </div>
                                 <div class="form-group col-12">
                                     <label>Alamat Lengkap <span class="text-danger">*</span></label>
@@ -180,6 +192,9 @@
       <!-- Tempusdominus Bootstrap 4 -->
       <script src="{{asset('base-template/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
 
+      <script src="{{asset('base-template/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
+
+
 
 
     <script type="text/javascript">
@@ -194,6 +209,10 @@
 
             $('#side-manajemen-pengguna').addClass('menu-open');
             $('#side-manajemen-pengguna-tambah').addClass('active');
+
+            $(function () {
+                bsCustomFileInput.init();
+            });
         });
     </script>
 

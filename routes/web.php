@@ -68,6 +68,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>'auth.admin'], function(){
 
         Route::delete('delete/{id?}', [ManajemenPenggunaController::class, 'delete'])->name('admin.manajemen-pengguna.delete');
 
+        Route::get('get-image-ktp/{id?}', [ManajemenPenggunaController::class, 'getImageKTP'])->name('get-image-ktp');
     });
 
     Route::prefix('trx-peminjaman')->group(function(){
@@ -80,7 +81,6 @@ Route::group(['prefix'=>'admin', 'middleware'=>'auth.admin'], function(){
         Route::put('buku-kembali/{id?}', [PeminjamanController::class, 'bukuKembali'])->name('admin.trx-peminjaman.buku-kembali');
         Route::delete('delete', [PeminjamanController::class, 'delete'])->name('admin.trx-peminjaman.delete');
 
-        // Route::get('getdata', [PeminjamanController::class, 'get'])->name('admin.trx-peminjaman.get');
     });
 
 

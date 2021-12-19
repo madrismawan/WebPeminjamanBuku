@@ -23,6 +23,7 @@ class CreatePeminjams extends Migration
             $table->date('tanggal_lahir');
             $table->string('nim',10)->unique();
             $table->enum('program_studi',['Teknologi Informasi','Teknik Sipil','Teknik Elektro','Teknik Arsitek','Teknik Mesin']);
+            $table->string('foto_ktp',255);
             $table->timestamps();
         });
 
@@ -33,7 +34,8 @@ class CreatePeminjams extends Migration
             'tanggal_lahir' => now(),
             'email' => 'alex@gmail.com',
             'nim' => '1804452817',
-            'program_studi' => 'Teknik Sipil'
+            'program_studi' => 'Teknik Sipil',
+            'foto_ktp'=> 'app/pengguna/foto_ktp/ktp.jpg'
         ]);
 
         Peminjams::create([
@@ -43,7 +45,8 @@ class CreatePeminjams extends Migration
             'tanggal_lahir' => now(),
             'email' => 'bobi@gmail.com',
             'nim' => '1904452817',
-            'program_studi' => 'Teknologi Informasi'
+            'program_studi' => 'Teknologi Informasi',
+            'foto_ktp'=> 'app/pengguna/foto_ktp/ktp.jpg'
         ]);
 
         Peminjams::create([
@@ -53,7 +56,8 @@ class CreatePeminjams extends Migration
             'tanggal_lahir' => now(),
             'email' => 'kadesancita@gmail.com',
             'nim' => '1804412817',
-            'program_studi' => 'Teknik Mesin'
+            'program_studi' => 'Teknik Mesin',
+            'foto_ktp'=> 'app/pengguna/foto_ktp/ktp.jpg'
         ]);
 
     }
