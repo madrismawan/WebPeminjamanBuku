@@ -18,9 +18,28 @@ class PeminjamanController extends Controller
 {
     public function index(Request $request)
     {
-        $dataTransaksiDetail = TrxPinjamanDetails::with(['trxpeminjaman','bukus'])->get();
+        // $dataTransaksiDetail = TrxPinjamanDetails::with(['trxpeminjaman','bukus'])->get();
+        // $dataTransaksi = TrxPinjamans::with(['peminjams','bukus'])->get();
+
+        $dataTransaksi = TrxPinjamans::with(['bukus'=>function($q){
+            $q->wherePivot('status','Masih dipinjam');
+        },'peminjams'])->get();
+
+        // dd($dataTransaksi);
+
+        // foreach ($dataTransaksi as $data){
+        //     echo $data->peminjams->nama;
+        //     foreach($data->bukus as $x){
+        //         echo $x->judul;
+        //         echo $x->trx_pinjaman_detail->buku_id;
+        //     //    dd($data);
+        //     }
+        // }
+
+        // dd($dataTransaksi->bukus);
         // dd($dataTransaksiDetail->where('status','Sudah kembali'));
-        return view('pages.admin.manajemen-peminjaman.peminjaman-index',compact('dataTransaksiDetail'));
+
+        return view('pages.admin.manajemen-peminjaman.peminjaman-index',compact('dataTransaksi'));
     }
 
 
