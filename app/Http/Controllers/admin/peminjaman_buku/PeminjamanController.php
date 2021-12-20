@@ -18,13 +18,14 @@ class PeminjamanController extends Controller
 {
     public function index(Request $request)
     {
-        // $dataTransaksiDetail = TrxPinjamanDetails::with(['trxpeminjaman','bukus'])->get();
+        $dataTransaksiDetail = TrxPinjamanDetails::with(['trxpeminjaman','bukus'])->get();
         // $dataTransaksi = TrxPinjamans::with(['peminjams','bukus'])->get();
 
-        $dataTransaksi = TrxPinjamans::with(['bukus'=>function($q){
+        $dataTransaksi = TrxPinjamans::where('status','masih meminjam')->with(['bukus'=>function($q){
             $q->wherePivot('status','Masih dipinjam');
         },'peminjams'])->get();
 
+        // dd( $dataTransaksi);
         // dd($dataTransaksi);
 
         // foreach ($dataTransaksi as $data){
@@ -39,7 +40,7 @@ class PeminjamanController extends Controller
         // dd($dataTransaksi->bukus);
         // dd($dataTransaksiDetail->where('status','Sudah kembali'));
 
-        return view('pages.admin.manajemen-peminjaman.peminjaman-index',compact('dataTransaksi'));
+        return view('pages.admin.manajemen-peminjaman.peminjaman-index',compact(['dataTransaksi','dataTransaksiDetail']));
     }
 
 
@@ -80,6 +81,7 @@ class PeminjamanController extends Controller
                 DB::beginTransaction();
                 TrxPinjamans::create([
                     'peminjam_id' => $request->peminjam,
+                    'stauts' =>'masih meminjam',
                     'tanggal' =>now()
                 ])->bukus()->attach($request->buku,['status'=>'Masih dipinjam']);
                 // Update Status Buku Menjadi Terpinjam
@@ -130,13 +132,30 @@ class PeminjamanController extends Controller
          // MAIN LOGIC
             try{
                 $trxpinjaman = TrxPinjamanDetails::findOrFail($request->id);
-                $trxpinjaman->update([
-                    'status' => 'Sudah kembali'
-                ]);
-                Buku::findOrFail($trxpinjaman->buku_id)->update([
-                    'kondisi'=> $request->kondisi,
-                    'status' => 'Bebas'
-                ]);
+                $jumlahTrxPinjaman = TrxPinjamanDetails::where('trx_id',$trxpinjaman->trx_id)->where('status','Masih dipinjam')->count();
+                if((int) $jumlahTrxPinjaman <= 1){
+                    Buku::findOrFail($trxpinjaman->buku_id)->update([
+                        'kondisi'=> $request->kondisi,
+                        'status' => 'Bebas'
+                    ]);
+                    TrxPinjamans::findOrFail($trxpinjaman->trx_id)->update([
+                        'status'=>'peminjaman selesai'
+                    ]);
+                    $trxpinjaman->update([
+                        'status' => 'Sudah kembali'
+                    ]);
+                }else{
+                    Buku::findOrFail($trxpinjaman->buku_id)->update([
+                        'kondisi'=> $request->kondisi,
+                        'status' => 'Bebas'
+                    ]);
+                    // TrxPinjamans::findOrFail($trxpinjaman->trx_id)->update([
+                    //     'status'=>'peminjaman selesai'
+                    // ]);
+                    $trxpinjaman->update([
+                        'status' => 'Sudah kembali'
+                    ]);
+                }
             }catch(ModelNotFoundException | PDOException | QueryException | \Throwable | \Exception $err){
                 return redirect()->back()->with([
                     'status' => 'fail',
@@ -176,19 +195,13 @@ class PeminjamanController extends Controller
         // MAIN LOGIC
             try{
                 DB::beginTransaction();
-                $dataTrxDetail = TrxPinjamanDetails::findOrFail($request->id);
-                $jumlahTrxPinjaman = TrxPinjamanDetails::where('trx_id',$dataTrxDetail->trx_id)->count();
-                if($jumlahTrxPinjaman<= 1){
-                    Buku::findOrFail($dataTrxDetail->buku_id)->update([
+                $dataTransaksi = TrxPinjamans::findOrFail($request->id);
+                foreach($dataTransaksi->bukus as $data){
+                    Buku::findOrFail($data->trx_pinjaman_detail->buku_id)->update([
                         'status'=>'Bebas'
                     ]);
-                    TrxPinjamans::findOrFail($dataTrxDetail->trx_id)->delete();
-                }else{
-                    Buku::findOrFail($dataTrxDetail->buku_id)->update([
-                        'status'=>'Bebas'
-                    ]);
-                    TrxPinjamanDetails::findOrFail($request->id)->delete();
                 }
+                $dataTransaksi->delete();
                 DB::commit();
             }catch(ModelNotFoundException | PDOException | QueryException | \Throwable | \Exception $err){
                 DB::rollBack();
@@ -231,7 +244,11 @@ class PeminjamanController extends Controller
 
         // MAIN LOGIC
              try{
-                $dataTransaksiDetail = TrxPinjamanDetails::where('id',$request->id)->with(['trxpeminjaman','bukus'])->get();
+                $dataTransaksiDetail = TrxPinjamans::where('id',$request->id)->with(['bukus'=>function($q){
+                    $q->wherePivot('status','Masih dipinjam');
+                },'peminjams'])->get();
+                // dd($dataTransaksiDetail);
+                // $dataTransaksiDetail = TrxPinjamans::where('id',$request->id)->with(['peminjams','bukus'])->get();
             }catch(ModelNotFoundException | PDOException | QueryException | \Exception $err){
                 return redirect()->back()->with([
                     'status' => 'fail',

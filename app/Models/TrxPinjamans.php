@@ -14,6 +14,7 @@ class TrxPinjamans extends Model
     protected $fillable = [
         'peminjam_id',
         'tanggal',
+        'status',
     ];
 
     public function peminjams()
@@ -25,9 +26,10 @@ class TrxPinjamans extends Model
     {
         return $this->belongsToMany(Buku::class,'trx_pinjaman_details','trx_id','buku_id')
             ->as('trx_pinjaman_detail')
-            ->withPivot('status')
+            ->withPivot('status','id')
             ->withTimestamps();
     }
+
 
 
 

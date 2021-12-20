@@ -104,7 +104,7 @@
                                                 <td>{{date('d-m-Y',strtotime($data->tanggal))}}</td>
                                                 <td>
                                                     <a href="{{route('admin.trx-peminjaman.detail',$data->id)}}" class="btn btn-secondary btn-sm"><i class="fas fa-eye"></i></a>
-                                                    <a onclick="konfirmasiKembali({{$data->id}})" href="#" class="btn btn-primary btn-sm"><i class="fas fa-check"></i></a>
+                                                    {{-- <a onclick="konfirmasiKembali({{$data->id}})" href="#" class="btn btn-primary btn-sm"><i class="fas fa-check"></i></a> --}}
                                                     <a onclick="deleteTransaksi({{$data->id}})" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
                                                 </td>
                                                 <form id="{{"delete-".$data->id}}" class="d-none" action="{{route('admin.trx-peminjaman.delete')}}" method="post">
@@ -168,19 +168,19 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{-- @foreach ($dataTransaksiDetail->where('status','Sudah kembali') as $data )
+                                        @foreach ($dataTransaksiDetail->where('status','Sudah kembali') as $data )
                                             <tr>
                                                 <td>{{$loop->iteration}}</td>
                                                 <td>{{$data->bukus->kode}}</td>
                                                 <td>{{$data->bukus->judul}}</td>
                                                 <td>{{$data->trxpeminjaman->peminjams->nama}}</td>
                                                 <td>{{date('d-m-Y',strtotime($data->trxpeminjaman->tanggal))}}</td>
-                                                <td>{{$data->status}}</td>
+                                                {{-- <td>{{$data->status}}</td> --}}
                                                 <td>
                                                     <a href="{{route('admin.trx-peminjaman.detail',$data->id)}}" class="btn btn-secondary btn-sm"><i class="fas fa-eye"></i></a>
                                                 </td>
                                             </tr>
-                                        @endforeach --}}
+                                        @endforeach
                                     </tbody>
                                     <tfoot >
                                         <tr>
@@ -201,7 +201,6 @@
 
                 </div>
             </div>
-
 
         </div>
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

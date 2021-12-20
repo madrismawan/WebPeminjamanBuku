@@ -17,6 +17,7 @@ class CreateTrxPinjamans extends Migration
             $table->id();
             $table->foreignId("peminjam_id")->references("id")->on("peminjams")->onDelete("cascade");
             $table->date('tanggal');
+            $table->enum('status',['masih meminjam','peminjaman selesai']);
             $table->timestamps();
         });
     }

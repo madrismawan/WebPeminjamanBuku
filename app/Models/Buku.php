@@ -28,7 +28,7 @@ class Buku extends Model
     {
         return $this->belongsToMany(TrxPinjamans::class,'trx_pinjaman_details','buku_id','trx_id')
             ->as('trx_pinjaman_detail')
-            ->withPivot('status')
+            ->withPivot('status','id')
             ->withTimestamps();
 
     }

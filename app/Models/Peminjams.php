@@ -27,4 +27,7 @@ class Peminjams extends Model
         return $this->hasMany(TrxPinjamans::class, 'peminjam_id','id');
     }
 
+
+
+
 }
