@@ -68,61 +68,34 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    {{-- <script>
-        // LOGIC REPORT
-            var bar_data = {
-                data : [
-                    // Ngambil data transaksi buku : buku:1 dipinjam sebanyak berapa kali di hitung dibawah pake count
-                    @foreach ($buku as $data)
-                        [{{$loop->iteration}}, {{count($detailTransaksi->where('buku_id',$data->id))}}],
-                    @endforeach
-                    ],
-                bars: { show: true }
-                }
-                // Nanti nampilin berdasarkan ID dibawah ni
-                $.plot('#bar-chart', [bar_data], {
-                grid  : {
-                    borderWidth: 1,
-                    borderColor: '#f3f3f3',
-                    tickColor  : '#f3f3f3'
-                },
-                series: {
-                    bars: {
-                    show: true, barWidth: 0.5, align: 'center',
-                    },
-                },
-                colors: ['#3c8dbc'],
-                xaxis : {
-                    ticks: [
-                        // Ini nampilin daftar bukunya berdasarkan judul anggeplah ini sumbu Xnya
-                        @foreach ($buku as $data )
-                            [{{$loop->iteration}},'{{$data->judul}}'],
-                        @endforeach
-                        // [2,'February'], [3,'March'], [4,'April']
-                    ]
-                }
-            })
-         // LOGIC REPORT
-
-    </script> --}}
-
     <script>
+        var date = new Date().getFullYear()
         const labels = [
-            'January',
-            'February',
-            'March',
+            'Januari',
+            'Februari',
+            'Maret',
             'April',
-            'May',
-            'June',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember'
         ];
 
         const data = {
             labels: labels,
             datasets: [{
-                label: 'Peminjaman Bulanan',
+                label: 'Peminjaman Tahun ' +date ,
                 backgroundColor: 'rgb(255, 99, 132)',
                 borderColor: 'rgb(255, 99, 132)',
-                data: [0, 10, 5, 2, 20, 30, 45],
+                data: [
+                    @foreach ($data as $jumlah)
+                        {{$jumlah}},
+                    @endforeach
+                ],
             }]
         };
 

@@ -47,8 +47,8 @@ class ReportController extends Controller
         $data = [];
 
         foreach($record as $row) {
-            $data['label'][] = $row->day_name;
-            $data['data'][] = (int) $row->count;
+            $data[ $row->day_name] =(int) $row->count;
+            // $data['data'][] = (int) $row->count;
         }
 
         // // $data['chart_data'] = ;
@@ -56,10 +56,23 @@ class ReportController extends Controller
         // $date = Carbon::now()->subDays(30)->startOfDay;
 
         // $test= Carbon::today()->subDay(6);
+        // dd($data->12);
 
-        dd($data);
+        $record = TrxPinjamanDetails::select(DB::raw('COUNT(*) as count'),DB::raw("MONTH (created_at) as month"))
+            ->whereYear('created_at', date('Y'))
+            ->groupBy('month')
+            ->get();
 
-        return view('pages.admin.report.report-peminjaman');
+        $data =[0,0,0,0,0,0,0,0,0,0,0,0];
+
+
+        foreach($record as $row)
+        {
+            $data[((int) $row->month-1)]= (int) $row->count;
+        }
+
+        // dd($data);
+        return view('pages.admin.report.report-peminjaman',compact('data'));
 
     }
 
