@@ -161,9 +161,9 @@
                             </a>
                         </li>
                         <li class="nav-item ml-3">
-                            <a id="side-laporan-buku" href="{{route('admin.report.buku')}}" class="nav-link p-2">
+                            <a id="side-laporan-peminjaman" href="{{route('admin.report.peminjaman')}}" class="nav-link p-2">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Lap. Pengguna</p>
+                            <p>Lap. Peminjaman</p>
                             </a>
                         </li>
                     </ul>

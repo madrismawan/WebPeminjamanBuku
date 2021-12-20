@@ -1,6 +1,6 @@
 @extends('layouts.main-layout.main-layout')
 
-@section('tittle','Report Buku')
+@section('tittle','Report Peminjaman')
 
 @push('css')
 
@@ -12,12 +12,12 @@
             <div class="container-fluid border-bottom">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Report Buku</h1>
+                        <h1>Report Transaksi Peminjaman Buku</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Home</a></li>
-                        <li class="breadcrumb-item active">Data Peminjaman Buku TI</li>
+                        <li class="breadcrumb-item active">Report Transaksi Peminjaman</li>
                         </ol>
                     </div>
                 </div>
@@ -42,9 +42,10 @@
                 </button>
               </div>
             </div>
-            <div class="card-body">
-              <div id="bar-chart" style="height: 300px;"></div>
+            <div>
+                <canvas id="myChart"></canvas>
             </div>
+
             <!-- /.card-body-->
         </div>
         <!-- /.card -->
@@ -62,10 +63,12 @@
     <!-- FLOT PIE PLUGIN - also used to draw donut charts -->
     <script src="{{asset('base-template/plugins/flot/plugins/jquery.flot.pie.js')}}"></script>
 
-    <!-- ChartJS -->
-    <script src="{{asset('base-template/plugins/chart.js/Chart.min.js')}}"></script>
+    <script src="{{asset('base-template/dist/js/chart.js')}}"></script>
 
-    <script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    {{-- <script>
         // LOGIC REPORT
             var bar_data = {
                 data : [
@@ -101,13 +104,44 @@
             })
          // LOGIC REPORT
 
+    </script> --}}
+
+    <script>
+        const labels = [
+            'January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+        ];
+
+        const data = {
+            labels: labels,
+            datasets: [{
+                label: 'Peminjaman Bulanan',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: [0, 10, 5, 2, 20, 30, 45],
+            }]
+        };
+
+        const config = {
+            type: 'line',
+            data: data,
+            options: {}
+        };
+        const myChart = new Chart(
+            document.getElementById('myChart'),
+            config
+        );
     </script>
 
 
     <script type="text/javascript">
         $(document).ready(function(){
             $('#side-laporan').addClass('menu-open');
-            $('#side-laporan-buku').addClass('active');
+            $('#side-laporan-peminjaman').addClass('active');
         });
     </script>
 @endpush

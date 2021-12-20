@@ -86,6 +86,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>'auth.admin'], function(){
 
     Route::prefix('report')->group(function(){
         Route::get('buku', [ReportReportController::class, 'reportBuku'])->name('admin.report.buku');
+        Route::get('peminjaman', [ReportReportController::class, 'reportPeminjaman'])->name('admin.report.peminjaman');
     });
 
 });
