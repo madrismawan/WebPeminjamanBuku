@@ -133,6 +133,7 @@ class PeminjamanController extends Controller
             try{
                 $trxpinjaman = TrxPinjamanDetails::findOrFail($request->id);
                 $jumlahTrxPinjaman = TrxPinjamanDetails::where('trx_id',$trxpinjaman->trx_id)->where('status','Masih dipinjam')->count();
+                $dataTransaksiDetail = TrxPinjamanDetails::where('id',$request->id)->with(['trxpeminjaman','bukus'])->get();
                 if((int) $jumlahTrxPinjaman <= 1){
                     Buku::findOrFail($trxpinjaman->buku_id)->update([
                         'kondisi'=> $request->kondisi,
@@ -215,12 +216,7 @@ class PeminjamanController extends Controller
         // END LOGIC
 
         // RETURN
-            return redirect()->back()->with([
-                'status' => 'success',
-                'icon' => 'success',
-                'title' => 'Berhasil Menghapus Transaksi',
-                'message' => 'Data transaksi peminjaman berhasil terhapus dari sistem'
-            ]);
+            return view('pages.admin.manajemen-peminjaman.peminjaman-detail-riwayat ',compact('dataTransaksiDetail'));
         // // END RETURN
     }
 
@@ -261,6 +257,42 @@ class PeminjamanController extends Controller
 
         // RETURN
             return view('pages.admin.manajemen-peminjaman.peminjaman-detail',compact('dataTransaksiDetail'));
+        // END RETURN
+
+    }
+
+    public function detailRiwayat(Request $request)
+    {
+        // SECURITY
+            $validator = Validator::make(['id' =>$request->id],[
+                'id' => 'required',
+            ]);
+
+            if($validator->fails()){
+                return redirect()->back()->with([
+                    'status' => 'fail',
+                    'icon' => 'error',
+                    'title' => 'View Detail Data Gagal',
+                    'message' => 'View detail data gagal, mohon hubungi developer untuk lebih lanjut!!',
+                ]);
+            }
+        // END SECURITY
+
+        // MAIN LOGIC
+            try{
+                $dataTransaksiDetail = TrxPinjamanDetails::where('id',$request->id)->with(['trxpeminjaman','bukus'])->get();
+            }catch(ModelNotFoundException | PDOException | QueryException | \Exception $err){
+                return redirect()->back()->with([
+                    'status' => 'fail',
+                    'icon' => 'error',
+                    'title' => 'View Detail Data Gagal',
+                    'message' => 'View detail data gagal, mohon hubungi developer untuk lebih lanjut!!',
+                ]);
+            }
+        // END LOGIC
+
+        // RETURN
+            return view('pages.admin.manajemen-peminjaman.peminjaman-detail-riwayat ',compact('dataTransaksiDetail'));
         // END RETURN
 
     }

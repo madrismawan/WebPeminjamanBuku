@@ -77,6 +77,8 @@ Route::group(['prefix'=>'admin', 'middleware'=>'auth.admin'], function(){
         Route::post('store', [PeminjamanController::class, 'store'])->name('admin.trx-peminjaman.store');
 
         Route::get('detail/{id?}', [PeminjamanController::class, 'detail'])->name('admin.trx-peminjaman.detail');
+        Route::get('detail/riwayat/{id?}', [PeminjamanController::class, 'detailRiwayat'])->name('admin.trx-peminjaman.detail.riwayat');
+
 
         Route::put('buku-kembali/{id?}', [PeminjamanController::class, 'bukuKembali'])->name('admin.trx-peminjaman.buku-kembali');
         Route::delete('delete', [PeminjamanController::class, 'delete'])->name('admin.trx-peminjaman.delete');

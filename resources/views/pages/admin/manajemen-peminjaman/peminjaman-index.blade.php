@@ -114,25 +114,6 @@
                                                 </form>
                                             </tr>
                                         @endforeach
-
-                                        {{-- @foreach ($dataTransaksiDetail->where('status','Masih dipinjam') as $data )
-                                            <tr>
-                                                <td>{{$loop->iteration}}</td>
-                                                <td>{{$data->bukus->kode}}</td>
-                                                <td>{{$data->bukus->judul}}</td>
-                                                <td>{{date('d-m-Y',strtotime($data->trxpeminjaman->tanggal))}}</td>
-                                                <td>
-                                                    <a href="{{route('admin.trx-peminjaman.detail',$data->id)}}" class="btn btn-secondary btn-sm"><i class="fas fa-eye"></i></a>
-                                                    <a onclick="konfirmasiKembali({{$data->id}})" href="#" class="btn btn-primary btn-sm"><i class="fas fa-check"></i></a>
-                                                    <a onclick="deleteTransaksi({{$data->id}})" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
-                                                </td>
-                                                <form id="{{"delete-".$data->id}}" class="d-none" action="{{route('admin.trx-peminjaman.delete')}}" method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <input type="hidden" class="d-none" name="id" value="{{$data->id}}">
-                                                </form>
-                                            </tr>
-                                        @endforeach --}}
                                     </tbody>
                                     <tfoot >
                                         <tr>
@@ -157,11 +138,11 @@
                                     <thead >
                                         <tr>
                                             <th>No</th>
-                                            <th>Nama</th>
+                                            <th>Kode Peminjaman</th>
                                             <th>Judul Buku</th>
                                             <th>Peminjam</th>
                                             <th>Tanggal Pinjam</th>
-                                            {{-- <th>Status</th> --}}
+                                            <th>Tanggal Kembali</th>
                                             <th>Tindakan</th>
                                             {{-- <input id="kondisiBuku" name='kondisi'> --}}
 
@@ -171,13 +152,14 @@
                                         @foreach ($dataTransaksiDetail->where('status','Sudah kembali') as $data )
                                             <tr>
                                                 <td>{{$loop->iteration}}</td>
-                                                <td>{{$data->bukus->kode}}</td>
+                                                <td>KP-{{$data->id}}</td>
                                                 <td>{{$data->bukus->judul}}</td>
                                                 <td>{{$data->trxpeminjaman->peminjams->nama}}</td>
                                                 <td>{{date('d-m-Y',strtotime($data->trxpeminjaman->tanggal))}}</td>
+                                                <td>{{date('d-m-Y',strtotime($data->updated_at))}}</td>
                                                 {{-- <td>{{$data->status}}</td> --}}
                                                 <td>
-                                                    <a href="{{route('admin.trx-peminjaman.detail',$data->id)}}" class="btn btn-secondary btn-sm"><i class="fas fa-eye"></i></a>
+                                                    <a href="{{route('admin.trx-peminjaman.detail.riwayat',$data->id)}}" class="btn btn-secondary btn-sm"><i class="fas fa-eye"></i></a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -185,11 +167,11 @@
                                     <tfoot >
                                         <tr>
                                             <th>No</th>
-                                            <th>Kode Buku</th>
+                                            <th>Kode Peminjaman</th>
                                             <th>Judul Buku</th>
                                             <th>Peminjam</th>
                                             <th>Tanggal Pinjam</th>
-                                            {{-- <th>Status</th> --}}
+                                            <th>Tanggal Kembali</th>
                                             <th>Tindakan</th>
                                         </tr>
                                     </tfoot>

@@ -88,7 +88,7 @@
                         </div>
 
                         <div class="card card-outline">
-                            <div class="card-header bg-primary">
+                            <div class="card-header bg-primary">p
                                 <strong>
                                     Daftar Buku
                                 </strong>
