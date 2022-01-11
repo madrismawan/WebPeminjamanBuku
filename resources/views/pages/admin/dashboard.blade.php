@@ -90,7 +90,7 @@
                     </div>
                     </div>
                     <div class="card-body">
-                    <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                        <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                     </div>
                     <!-- /.card-body -->
                 </div>
@@ -167,7 +167,7 @@
             var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
             var donutData        = {
             labels: [
-                'Balai Pustaka ',
+                'Balai Pustaka',
                 'Tiga Serangkai',
             ],
             datasets: [

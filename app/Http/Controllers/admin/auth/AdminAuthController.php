@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin\auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Buku;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

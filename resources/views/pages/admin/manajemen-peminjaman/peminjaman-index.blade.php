@@ -74,7 +74,7 @@
                         </div>
                     </div>
 
-                    {{-- Start Data Table Sulinggih --}}
+                    {{-- Start table Peminjam--}}
                     <div class="tab-pane fade show active" id="peminjam-table" role="tabpanel" aria-labelledby="peminjam-tabs">
                         <div class="card-body p-0">
                             <div class="table-responsive mailbox-messages p-2">
@@ -85,14 +85,11 @@
                                             <th>Nama Peminjam</th>
                                             <th>Buku dipinjam</th>
                                             <th>Tanggal Pinjam</th>
-                                            {{-- <th>Status</th> --}}
                                             <th>Tindakan</th>
-                                            {{-- <input id="kondisiBuku" name='kondisi'> --}}
-
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($dataTransaksi as $data )
+                                        @foreach ($dataTransaksi as $data)
                                             <tr>
                                                 <td>{{$loop->iteration}}</td>
                                                 <td>{{$data->peminjams->nama}}</td>

@@ -18,7 +18,7 @@ class CreateBukus extends Migration
             $table->id();
             $table->string('kode',10);
             $table->string('judul',100);
-            $table->string('deskripsi',255);
+            $table->string('deskripsi',255)->nullable();
             $table->enum('penerbit',['Tiga Serangkai','Balai Pustaka']);
             $table->year('tahun_terbit',4);
             $table->string('pengarang',100);

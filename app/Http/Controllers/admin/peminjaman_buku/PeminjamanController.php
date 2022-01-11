@@ -25,21 +25,6 @@ class PeminjamanController extends Controller
             $q->wherePivot('status','Masih dipinjam');
         },'peminjams'])->get();
 
-        // dd( $dataTransaksi);
-        // dd($dataTransaksi);
-
-        // foreach ($dataTransaksi as $data){
-        //     echo $data->peminjams->nama;
-        //     foreach($data->bukus as $x){
-        //         echo $x->judul;
-        //         echo $x->trx_pinjaman_detail->buku_id;
-        //     //    dd($data);
-        //     }
-        // }
-
-        // dd($dataTransaksi->bukus);
-        // dd($dataTransaksiDetail->where('status','Sudah kembali'));
-
         return view('pages.admin.manajemen-peminjaman.peminjaman-index',compact(['dataTransaksi','dataTransaksiDetail']));
     }
 
@@ -56,7 +41,7 @@ class PeminjamanController extends Controller
     public function store(Request $request)
     {
         //SECURITY
-            $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(),[
                 'peminjam' => 'required',
                 'buku' => 'required',
             ],
@@ -79,9 +64,10 @@ class PeminjamanController extends Controller
         // MAIN LOGIC
             try{
                 DB::beginTransaction();
+
                 TrxPinjamans::create([
                     'peminjam_id' => $request->peminjam,
-                    'stauts' =>'masih meminjam',
+                    'status' =>'masih meminjam',
                     'tanggal' =>now()
                 ])->bukus()->attach($request->buku,['status'=>'Masih dipinjam']);
                 // Update Status Buku Menjadi Terpinjam
@@ -89,6 +75,7 @@ class PeminjamanController extends Controller
                 foreach($dataListbuku as $buku){
                     $buku = Buku::findOrFail($buku)->update(['status'=>'Terpinjam']);
                 }
+
                 DB::commit();
             }catch(ModelNotFoundException | PDOException | QueryException | \Throwable | \Exception $err){
                 DB::rollBack();

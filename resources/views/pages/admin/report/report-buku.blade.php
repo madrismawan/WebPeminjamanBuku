@@ -95,7 +95,7 @@
                         @foreach ($buku as $data )
                             [{{$loop->iteration}},'{{$data->judul}}'],
                         @endforeach
-                        // [2,'February'], [3,'March'], [4,'April']
+                        // [0,'February'], [3,'March'], [4,'April']
                     ]
                 }
             })

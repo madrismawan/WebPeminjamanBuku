@@ -38,7 +38,6 @@ class ManajemenBukuController extends Controller
 
         // SECURITY
             $validator = Validator::make($request->all(),[
-                // 'kode_buku' => 'required',
                 'judul_buku' => 'required',
                 'jumlah_halaman' => 'required',
                 'tahun_terbit' => 'required|numeric',
@@ -46,7 +45,6 @@ class ManajemenBukuController extends Controller
                 'penerbit' => 'required|in:Balai Pustaka,Tiga Serangkai',
                 'kondisi_buku' => 'required|in:Baik,Sedang,Rusak',
                 'file' => 'required',
-                'deskripsi_buku' => 'required',
 
             ]);
 
@@ -177,7 +175,6 @@ class ManajemenBukuController extends Controller
                 'message' => 'Gagal Membuat Data Buku, apabila diperlukan mohon hubungi developer sistem`',
             ]);
         }
-
         // END LOGIC
 
         // RETURN

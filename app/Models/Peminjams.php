@@ -19,7 +19,7 @@ class Peminjams extends Model
         'nim',
         'program_studi',
         'email',
-        'foto_ktp'
+        'foto_ktp',
     ];
 
     public function trxpeminjams()
